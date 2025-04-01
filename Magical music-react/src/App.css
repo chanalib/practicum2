@@ -1,0 +1,148 @@
+.header {
+  background-color: #f8f9fa29;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-nav {
+  width: 100%;
+  /* הגדר רוחב מלא */
+  display: flex;
+  /* הוסף כדי לסדר את התוכן בשורה */
+  justify-content: space-between;
+  /* ריווח בין התמונה לכפתורים */
+  align-items: center;
+  /* ממרכז את התוכן אנכית */
+}
+
+
+.header-buttons {
+  display: flex;
+  /* סידור הכפתורים בשורה */
+  gap: 10px;
+  /* רווח בין הכפתורים */
+}
+
+.header-button {
+  background-color: #da1f9c00;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 25px;
+
+}
+
+#start {
+  font-size: 22px;
+}
+
+.container {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+  /* גובה המסך פחות גובה ה-header */
+  margin-top: 80px;
+  /* רווח למטה מה-header */
+}
+
+.home-title {
+  color: #000000;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.header-button {
+  padding: 10px 20px;
+  color: rgb(1, 1, 1);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  direction: rtl;
+  height: auto;
+  padding: 40px;
+  margin: 40px;
+  background-color: rgba(255, 255, 255, 0.537);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+.message {
+  color: #000000;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: space-between; /* ריווח בין הכפתורים */
+  width: 100%; /* רוחב מלא */
+  margin-top: 20px; /* רווח מעל הכפתורים */
+}
+
+.login-buttons button {
+  border: none; /* ללא גבול */
+  border-radius: 5px; /* פינות מעוגלות */
+  cursor: pointer; /* חץ כשעוברים עם העכבר */
+  transition: background-color 0.3s; /* אנימציה לשינוי צבע */
+}
+
+.login-buttons button[type="submit"] {
+  background-color: #0000007b; /* צבע כפתור הרשמה */
+  color: white; /* צבע טקסט */
+  padding: 12px 20px; /* רווח פנימי גדול יותר */
+  font-size: 1.2em; /* גודל טקסט גדול יותר */
+  border: 2px solid #000000; /* גבול צבעוני */
+}
+
+.login-buttons button.header-button {
+  background-color: transparent; /* צבע רקע שקוף */
+  color: #000000; /* צבע טקסט */
+  padding: 8px 16px; /* רווח פנימי קטן יותר */
+  font-size: 0.9em; /* גודל טקסט קטן יותר */
+  border: 1px solid #000000; /* גבול צבעוני */
+}
+.bigTitle{
+  font-size: 20px !important;
+color: var(--second-color) ;
+background-color: rgba(255, 255, 255, 0.217);
+padding:20px 20px;
+text-align: center;
+  letter-spacing: 1px;
+  line-height: 50px;
+  direction: rtl;
+}
