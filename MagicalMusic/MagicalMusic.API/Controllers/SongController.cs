@@ -18,69 +18,63 @@ namespace MagicalMusic.API.Controllers
         }
 
 
+        //לקבלת כל השירים
         [HttpGet]
-        public async Task<IEnumerable<Song>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return await _songService.GetAllAsync();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Song>> GetById(int id)
-        {
-            var song = await _songService.GetByIdAsync(id);
-            if (song == null) return NotFound();
-            return song;
-        }
-
-        //  [Authorize(Roles = "Admin")]
-
-        [HttpGet("byCreator/{creatorId}")]
-        public async Task<IActionResult> GetSongsByCreatorId(int creatorId)
-        {
-            var songs = await _songService.GetByCreatorIdAsync(creatorId);
-
-            if (songs == null || !songs.Any())
-            {
-                return NotFound("No songs found for this creator.");
-            }
-
+            var songs = await _songService.GetAllAsync();
             return Ok(songs);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Song>> Add([FromBody] SongDTO songDto)
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            //if (  string.IsNullOrEmpty(songDto.Name)|| songDto == null)
-            //{
-            //    return BadRequest("Song data and Name are required.");
-            //}
-
-            var song = await _songService.AddAsync(songDto);
-            return CreatedAtAction(nameof(GetById), new { id = song.Id }, song);
+            var song = await _songService.GetByIdAsync(id);
+            if (song == null) return NotFound();
+            return Ok(song);
         }
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] SongDTO songDto)
+        {
+            var created = await _songService.AddAsync(songDto);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+        //  [Authorize(Roles = "Admin")]
 
+        //[HttpGet("byCreator/{creatorId}")]
+        //public async Task<IActionResult> GetSongsByCreatorId(int creatorId)
+        //{
+        //    var songs = await _songService.GetByCreatorIdAsync(creatorId);
 
+        //    if (songs == null || !songs.Any())
+        //    {
+        //        return NotFound("No songs found for this creator.");
+        //    }
+
+        //    return Ok(songs);
+        //}
 
 
 
         //  [Authorize(Roles = "Admin")]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] SongDTO song)
-        {
-            Song s = await _songService.UpdateAsync(id, song);
-            if (s == null)
-            {
-                return NotFound();
-            }
-            return Ok(s);
-        }
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> Update(int id, [FromBody] SongDTO song)
+        //{
+        //    Song s = await _songService.UpdateAsync(id, song);
+        //    if (s == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(s);
+        //}
 
-        //   [Authorize(Roles = "Admin")]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            await _songService.DeleteAsync(id);
-            return NoContent();
-        }
+        ////   [Authorize(Roles = "Admin")]
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    await _songService.DeleteAsync(id);
+        //    return NoContent();
+        //}
     }
 }

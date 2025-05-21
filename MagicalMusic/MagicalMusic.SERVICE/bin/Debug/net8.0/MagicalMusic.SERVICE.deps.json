@@ -885,10 +885,7 @@
           "DotNetEnv": "3.1.1"
         },
         "runtime": {
-          "MagicalMusic.CORE.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "MagicalMusic.CORE.dll": {}
         }
       }
     }

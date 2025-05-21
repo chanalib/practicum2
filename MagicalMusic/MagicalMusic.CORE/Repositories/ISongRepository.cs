@@ -12,8 +12,8 @@ namespace MagicalMusic.CORE.Repositories
         public Task<IEnumerable<Song>> GetAllAsync();
         public Task<Song> GetByIdAsync(int id);
         public Task<Song> AddAsync(Song song);
-        public Task<Song> UpdateAsync(int id, Song song);
-        public Task DeleteAsync(int id);
-        Task<IEnumerable<Song>> GetByCreatorIdAsync(int creatorId);
+        //public Task<Song> UpdateAsync(int id, Song song);
+        //public Task DeleteAsync(int id);
+        //Task<IEnumerable<Song>> GetByCreatorIdAsync(int creatorId);
     }
 }

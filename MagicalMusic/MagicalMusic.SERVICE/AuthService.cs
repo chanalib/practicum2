@@ -66,7 +66,7 @@ namespace MagicalMusic.SERVICE
 
         private string GenerateToken(string username, string[] roles)
         {
-            var jwtKey = _configuration["Jwt:Key"];
+            var jwtKey = _configuration["JWT_KEY"];
             if (string.IsNullOrEmpty(jwtKey))
             {
                 throw new ArgumentNullException("Jwt:Key", "JWT Key must be provided in appsettings.json");

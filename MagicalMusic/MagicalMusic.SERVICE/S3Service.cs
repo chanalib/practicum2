@@ -2,10 +2,12 @@
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Microsoft.Extensions.Configuration;
-using System.Net;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+
 namespace MagicalMusic.SERVICE
 {
-
     public class S3Service
     {
         private readonly IAmazonS3 _s3Client;
@@ -14,114 +16,167 @@ namespace MagicalMusic.SERVICE
         public S3Service(IAmazonS3 s3Client, IConfiguration configuration)
         {
             _s3Client = s3Client;
-            _bucketName = configuration["AWS:S3:BucketName"];
+            _bucketName = configuration["AWS:BucketName"]!;
         }
 
-        // ✅ פונקציה להעלאת קובץ ל-S3
-        public async Task<string> UploadFileAsync(Stream fileStream, string fileName)
+        public async Task<(string Url, string Key)> UploadFileAsync(Stream fileStream, string fileName)
         {
-            var request = new TransferUtilityUploadRequest
+            var transferUtility = new TransferUtility(_s3Client);
+
+            var key = $"songs/{Guid.NewGuid()}_{fileName}";
+
+            var uploadRequest = new TransferUtilityUploadRequest
             {
                 InputStream = fileStream,
-                Key = fileName,
                 BucketName = _bucketName,
-                CannedACL = S3CannedACL.PublicRead // שינוי כאן ל-CannedACL.PublicRead
+                Key = key,
+                ContentType = "audio/mpeg"
             };
 
-            var transferUtility = new TransferUtility(_s3Client);
-            await transferUtility.UploadAsync(request);
+            await transferUtility.UploadAsync(uploadRequest);
 
-            return $"https://{_bucketName}.s3.amazonaws.com/{fileName}";
+            return ($"https://{_bucketName}.s3.amazonaws.com/{key}", key);
         }
 
 
-        // ✅ פונקציה להורדת קובץ מ-S3
-        public async Task<Stream> DownloadFileAsync(string fileName)
-        {
-            var request = new GetObjectRequest
-            {
-                BucketName = _bucketName,
-                Key = fileName
-            };
-
-            var response = await _s3Client.GetObjectAsync(request);
-            return response.ResponseStream;
-        }
-
-
-        public async Task<bool> DeleteFileAsync(string fileName)
+        public async Task<GetObjectResponse> GetFileAsync(string key)
         {
             try
             {
-                var request = new DeleteObjectRequest
+                var request = new GetObjectRequest
                 {
                     BucketName = _bucketName,
-                    Key = fileName
+                    Key = key
                 };
 
-                var response = await _s3Client.DeleteObjectAsync(request);
-                return response.HttpStatusCode == HttpStatusCode.NoContent; // בדוק אם המחיקה הצליחה
+                var response = await _s3Client.GetObjectAsync(request);
+                return response;
             }
-            catch (Exception ex)
+            catch (AmazonS3Exception)
             {
-                // אפשר ללוג את השגיאה כאן אם תרצה
-                return false;
+                return null;
             }
         }
-
-        // ✅ פונקציה לקבלת רשימת הקבצים ב-S3
-        public async Task<List<string>> ListFilesAsync()
-        {
-            var request = new ListObjectsV2Request
-            {
-                BucketName = _bucketName
-            };
-
-            var response = await _s3Client.ListObjectsV2Async(request);
-            var fileNames = new List<string>();
-
-            foreach (var obj in response.S3Objects)
-            {
-                fileNames.Add(obj.Key);
-            }
-
-            return fileNames;
-        }
-        public async Task<string> GetPreSignedUrlAsync(string fileName)
+        public string GetPresignedUrl(string key)
         {
             var request = new GetPreSignedUrlRequest
             {
                 BucketName = _bucketName,
-                Key = $"Audio/{fileName}",
-                Verb = HttpVerb.GET,
-                Expires = DateTime.UtcNow.AddMinutes(10),
-                ContentType = "audio/mpeg"
+                Key = key,
+                Expires = DateTime.UtcNow.AddMinutes(10)
             };
 
             return _s3Client.GetPreSignedURL(request);
         }
 
-        public async Task<List<string>> GetByCreatorIdAsync(int creatorId)
-        {
-            var songs = new List<string>();
-
-            // הנחה שהשירים נשמרים בתיקייה עם שם היוצר
-            var creatorFolder = $"Audio/{creatorId}/"; // או כל מבנה תיקיות אחר שאתה משתמש בו
-
-            // קבלת רשימת הקבצים בתיקייה של היוצר
-            var listResponse = await _s3Client.ListObjectsAsync(new ListObjectsRequest
-            {
-                BucketName = _bucketName,
-                Prefix = creatorFolder
-            });
-
-            foreach (var obj in listResponse.S3Objects)
-            {
-                songs.Add(obj.Key); // הוספת שם הקובץ לרשימה
-            }
-
-            return songs;
-        }
-
     }
 }
+
+
+//public async Task<Stream> DownloadFileAsync(string fileName)
+//{
+//    var request = new GetObjectRequest
+//    {
+//        BucketName = _bucketName,
+//        Key = fileName
+//    };
+
+
+//    var response = await _s3Client.GetObjectAsync(request);
+//    return response.ResponseStream;
+//}
+
+
+//public async Task<bool> DeleteFileAsync(string fileName)
+//{
+//    try
+//    {
+//        var request = new DeleteObjectRequest
+//        {
+//            BucketName = _bucketName,
+//            Key = fileName
+//        };
+
+//        var response = await _s3Client.DeleteObjectAsync(request);
+//        return response.HttpStatusCode == HttpStatusCode.NoContent; // בדוק אם המחיקה הצליחה
+//    }
+//    catch (Exception ex)
+//    {
+//        // אפשר ללוג את השגיאה כאן אם תרצה
+//        return false;
+//    }
+//}
+
+//// ✅ פונקציה לקבלת רשימת הקבצים ב-S3
+//public async Task<List<string>> ListFilesAsync()
+//{
+//    var request = new ListObjectsV2Request
+//    {
+//        BucketName = _bucketName
+//    };
+
+//    var response = await _s3Client.ListObjectsV2Async(request);
+//    var fileNames = new List<string>();
+
+//    foreach (var obj in response.S3Objects)
+//    {
+//        fileNames.Add(obj.Key);
+//    }
+
+//    return fileNames;
+//}
+//public async Task<string> GetPreSignedUrlAsync(string fileName)
+//{
+//    var request = new GetPreSignedUrlRequest
+//    {
+//        BucketName = _bucketName,
+//        Key = $"Audio/{fileName}",
+//        Verb = HttpVerb.GET,
+//        Expires = DateTime.UtcNow.AddMinutes(10),
+//        ContentType = "audio/mpeg"
+//    };
+
+//    return _s3Client.GetPreSignedURL(request);
+//}
+
+//public async Task<List<string>> GetByCreatorIdAsync(int creatorId)
+//{
+//    var songs = new List<string>();
+
+//    // הנחה שהשירים נשמרים בתיקייה עם שם היוצר
+//    var creatorFolder = $"Audio/{creatorId}/"; // או כל מבנה תיקיות אחר שאתה משתמש בו
+
+//    // קבלת רשימת הקבצים בתיקייה של היוצר
+//    var listResponse = await _s3Client.ListObjectsAsync(new ListObjectsRequest
+//    {
+//        BucketName = _bucketName,
+//        Prefix = creatorFolder
+//    });
+
+//    foreach (var obj in listResponse.S3Objects)
+//    {
+//        songs.Add(obj.Key); // הוספת שם הקובץ לרשימה
+//    }
+
+//    return songs;
+//}
+//// פונקציה לבדיקה עצמית של חיבור תקין ל-S3
+//public async Task<bool> TestS3ConnectionAsync()
+//{
+//    try
+//    {
+//        var testKey = "test.txt"; // ודא שקובץ זה קיים ב-S3 שלך
+//        var response = await _s3Client.GetObjectAsync(_bucketName, testKey);
+//        return response.HttpStatusCode == HttpStatusCode.OK;
+//    }
+//    catch (AmazonS3Exception ex)
+//    {
+//        Console.WriteLine($"S3 Error: {ex.Message}");
+//        return false;
+//    }
+//    catch (Exception ex)
+//    {
+//        Console.WriteLine($"General Error: {ex.Message}");
+//        return false;
+//    }
+//}

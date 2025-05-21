@@ -8,16 +8,18 @@ namespace MagicalMusic.CORE.DTOs
 {
     public class SongDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public string MusicStyle { get; set; }
 
-        public TimeSpan SongLength { get; set; }
+        public int SongLength { get; set; }
 
         public DateTime ReleaseDate { get; set; }
 
-        public string ImageUrl { get; set; }
-
         public int CreatorId { get; set; }
+        public string ImageUrl { get; set; }
+        public string Key { get; set; }  // שדה חדש למפתח ה-S3
+
     }
 }

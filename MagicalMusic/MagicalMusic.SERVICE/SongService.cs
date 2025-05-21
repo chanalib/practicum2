@@ -23,34 +23,54 @@ namespace MagicalMusic.SERVICE
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Song>> GetAllAsync() => await _songRepository.GetAllAsync();
-        public async Task<Song> GetByIdAsync(int id) => await _songRepository.GetByIdAsync(id);
-        public async Task<IEnumerable<Song>> GetByCreatorIdAsync(int creatorId)
+        public async Task<SongDTO> AddAsync(SongDTO dto)
         {
-            return await _songRepository.GetByCreatorIdAsync(creatorId);
+            var entity = _mapper.Map<Song>(dto);
+            var added = await _songRepository.AddAsync(entity);
+            return _mapper.Map<SongDTO>(added);
         }
 
-        public async Task<Song> AddAsync(SongDTO songDto)
+        public async Task<IEnumerable<SongDTO>> GetAllAsync()
         {
-            var song = new Song
-            {
-                Name = songDto.Name,
-                MusicStyle = songDto.MusicStyle,
-                SongLength = songDto.SongLength,
-                ReleaseDate = songDto.ReleaseDate,
-                ImageUrl = songDto.ImageUrl,
-                creatorId = songDto.CreatorId
-            };
-
-            return await _songRepository.AddAsync(song);
+            var songs = await _songRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<SongDTO>>(songs);
         }
 
-      
-        public async Task<Song> UpdateAsync(int id, SongDTO song)
+        public async Task<SongDTO?> GetByIdAsync(int id)
         {
-            var songMap = _mapper.Map<Song>(song);
-            return await _songRepository.UpdateAsync(id, songMap);
+            var song = await _songRepository.GetByIdAsync(id);
+            return song != null ? _mapper.Map<SongDTO>(song) : null;
         }
-        public async Task DeleteAsync(int id) => await _songRepository.DeleteAsync(id);
+
+        //public async Task<IEnumerable<Song>> GetAllAsync() => await _songRepository.GetAllAsync();
+        //public async Task<Song> GetByIdAsync(int id) => await _songRepository.GetByIdAsync(id);
+        //public async Task<IEnumerable<Song>> GetByCreatorIdAsync(int creatorId)
+        //{
+        //    return await _songRepository.GetByCreatorIdAsync(creatorId);
+        //}
+
+        //public async Task<Song> AddAsync(SongDTO songDto)
+        //{
+        //    var song = new Song
+        //    {
+        //        Name = songDto.Name,
+        //        MusicStyle = songDto.MusicStyle,
+        //        SongLength = songDto.SongLength,
+        //        ReleaseDate = songDto.ReleaseDate,
+        //        ImageUrl = songDto.ImageUrl,
+        //        creatorId = songDto.CreatorId
+        //    };
+
+        //    return await _songRepository.AddAsync(song);
+        //}
+
+
+
+        //public async Task<Song> UpdateAsync(int id, SongDTO song)
+        //{
+        //    var songMap = _mapper.Map<Song>(song);
+        //    return await _songRepository.UpdateAsync(id, songMap);
+        //}
+        //public async Task DeleteAsync(int id) => await _songRepository.DeleteAsync(id);
     }
 }

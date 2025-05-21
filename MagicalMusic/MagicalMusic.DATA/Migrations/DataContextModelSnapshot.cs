@@ -55,8 +55,8 @@ namespace MagicalMusic.DATA.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<TimeSpan>("SongLength")
-                        .HasColumnType("time(6)");
+                    b.Property<int>("SongLength")
+                        .HasColumnType("int");
 
                     b.Property<int>("creatorId")
                         .HasColumnType("int");

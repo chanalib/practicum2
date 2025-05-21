@@ -12,10 +12,11 @@ using System;
 using System.Reflection;
 
 [assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("3a92180c-4c2d-4a4c-8619-7781d4b95b18")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("MagicalMusic.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff0ac8afa78e999abe6cca1e25ec87e467ed91f3")]
 [assembly: System.Reflection.AssemblyProductAttribute("MagicalMusic.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MagicalMusic.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

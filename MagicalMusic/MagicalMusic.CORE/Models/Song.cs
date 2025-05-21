@@ -15,7 +15,7 @@ namespace MagicalMusic.CORE.Models
 
         public string MusicStyle { get; set; }
 
-        public TimeSpan SongLength { get; set; }
+        public int SongLength { get; set; }
 
         public DateTime ReleaseDate { get; set; }
 
@@ -25,5 +25,7 @@ namespace MagicalMusic.CORE.Models
         public Creator Creator { get; set; }
 
         public ICollection<User> Users { get; set; }
+        public string Key { get; set; }  // שדה חדש למפתח ה-S3
+
     }
 }

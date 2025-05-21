@@ -4989,11 +4989,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\myPracticum2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj",
+      "projectUniqueName": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj",
       "projectName": "MagicalMusic.CORE",
-      "projectPath": "C:\\myPracticum2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj",
+      "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj",
       "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-      "outputPath": "C:\\myPracticum2\\MagicalMusic\\MagicalMusic.CORE\\obj\\",
+      "outputPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.CORE\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5026,8 +5026,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.200"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -5062,7 +5061,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

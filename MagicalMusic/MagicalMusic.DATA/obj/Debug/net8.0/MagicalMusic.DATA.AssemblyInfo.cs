@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("3a92180c-4c2d-4a4c-8619-7781d4b95b18")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("MagicalMusic.DATA")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b00ca4fd23749b992d18543b447ac11bf90b428b")]
 [assembly: System.Reflection.AssemblyProductAttribute("MagicalMusic.DATA")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MagicalMusic.DATA")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

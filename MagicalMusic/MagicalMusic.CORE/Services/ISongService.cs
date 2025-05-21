@@ -10,11 +10,12 @@ namespace MagicalMusic.CORE.Services
 {
     public interface ISongService
     {
-        public Task<IEnumerable<Song>> GetAllAsync();
-        public Task<Song> GetByIdAsync(int id);
-        public Task<IEnumerable<Song>> GetByCreatorIdAsync(int creatorId);
-        public Task<Song> AddAsync(SongDTO song);
-        public Task<Song> UpdateAsync(int id, SongDTO song);
-        public Task DeleteAsync(int id);
+        Task<SongDTO> AddAsync(SongDTO dto);
+        Task<IEnumerable<SongDTO>> GetAllAsync();
+        Task<SongDTO?> GetByIdAsync(int id);
+
+        //public Task<IEnumerable<Song>> GetByCreatorIdAsync(int creatorId);
+        //public Task<Song> UpdateAsync(int id, SongDTO song);
+        //public Task DeleteAsync(int id);
     }
 }

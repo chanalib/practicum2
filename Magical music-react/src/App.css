@@ -1,148 +1,76 @@
-.header {
-  background-color: #f8f9fa29;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* אם אתה לא רוצה גלילה */
 }
 
-.header-nav {
-  width: 100%;
-  /* הגדר רוחב מלא */
-  display: flex;
-  /* הוסף כדי לסדר את התוכן בשורה */
-  justify-content: space-between;
-  /* ריווח בין התמונה לכפתורים */
-  align-items: center;
-  /* ממרכז את התוכן אנכית */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* ודא שהקנבס מאחורי שאר האלמנטים */
 }
-
-
-.header-buttons {
-  display: flex;
-  /* סידור הכפתורים בשורה */
-  gap: 10px;
-  /* רווח בין הכפתורים */
-}
-
-.header-button {
-  background-color: #da1f9c00;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-  transition: border-color 25px;
-
-}
-
-#start {
-  font-size: 22px;
-}
-
-.container {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: calc(100vh - 80px);
-  /* גובה המסך פחות גובה ה-header */
-  margin-top: 80px;
-  /* רווח למטה מה-header */
-}
-
-.home-title {
-  color: #000000;
-  line-height: 1.5;
-  letter-spacing: 1px;
-  margin-bottom: 20px;
-}
-
-.header-button {
-  padding: 10px 20px;
-  color: rgb(1, 1, 1);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-}
-
+.canvas-background {
+    position: fixed; /* מיקום קבוע כך שהרקע לא יזוז בגלילה */
+    top: 0; /* מתחיל מהחלק העליון */
+    left: 0; /* מתחיל מהחלק השמאלי */
+    width: 100vw; /* רוחב מלא של חלון הדפדפן */
+    height: 100vh; /* גובה מלא של חלון הדפדפן */
+    z-index: -1; /* נמוך יותר מכל אלמנט אחר */
+    pointer-events: none; /* לא להגיב לאירועים */
+  }
+  /* עיצוב כללי ללוגין */
 .login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  direction: rtl;
-  height: auto;
-  padding: 40px;
-  margin: 40px;
-  background-color: rgba(255, 255, 255, 0.537);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgba(20, 20, 20, 0.8); /* רקע כהה עם שקיפות */
+    border-radius: 10px; /* פינות מעוגלות */
+    padding: 20px; /* רווח פנימי */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* צל */
+    max-width: 400px; /* רוחב מקסימלי */
+    margin: auto; /* מרכז את הקונטיינר */
+    color: white; /* צבע טקסט */
+}
+
+.login-form {
+    display: flex; /* תצוגה גמישה */
+    flex-direction: column; /* פריסה בעמודה */
 }
 
 .login-form input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-}
-
-.message {
-  color: #000000;
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 12px;
+    margin-bottom: 15px; /* רווח בין השדות */
+    padding: 10px; /* רווח פנימי */
+    border: none; /* ללא גבול */
+    border-radius: 5px; /* פינות מעוגלות */
+    background-color: rgba(255, 255, 255, 0.1); /* רקע בהיר עם שקיפות */
+    color: white; /* צבע טקסט */
+    font-size: 16px; /* גודל טקסט */
 }
 
 .login-buttons {
-  display: flex;
-  justify-content: space-between; /* ריווח בין הכפתורים */
-  width: 100%; /* רוחב מלא */
-  margin-top: 20px; /* רווח מעל הכפתורים */
+    display: flex; /* תצוגה גמישה */
+    justify-content: space-between; /* רווח בין הכפתורים */
 }
 
-.login-buttons button {
-  border: none; /* ללא גבול */
-  border-radius: 5px; /* פינות מעוגלות */
-  cursor: pointer; /* חץ כשעוברים עם העכבר */
-  transition: background-color 0.3s; /* אנימציה לשינוי צבע */
+.header-button {
+    background-color: transparent; /* רקע שקוף */
+    color: white; /* צבע טקסט */
+    border: none; /* ללא גבול */
+    cursor: pointer; /* מצביע על לחיצה */
+    font-size: 14px; /* גודל טקסט */
 }
 
-.login-buttons button[type="submit"] {
-  background-color: #0000007b; /* צבע כפתור הרשמה */
-  color: white; /* צבע טקסט */
-  padding: 12px 20px; /* רווח פנימי גדול יותר */
-  font-size: 1.2em; /* גודל טקסט גדול יותר */
-  border: 2px solid #000000; /* גבול צבעוני */
+button[type="submit"] {
+    background-color: #ff4081; /* צבע רקע */
+    color: white; /* צבע טקסט */
+    border: none; /* ללא גבול */
+    border-radius: 5px; /* פינות מעוגלות */
+    padding: 10px; /* רווח פנימי */
+    cursor: pointer; /* מצביע על לחיצה */
+    font-size: 16px; /* גודל טקסט */
 }
 
-.login-buttons button.header-button {
-  background-color: transparent; /* צבע רקע שקוף */
-  color: #000000; /* צבע טקסט */
-  padding: 8px 16px; /* רווח פנימי קטן יותר */
-  font-size: 0.9em; /* גודל טקסט קטן יותר */
-  border: 1px solid #000000; /* גבול צבעוני */
-}
-.bigTitle{
-  font-size: 20px !important;
-color: var(--second-color) ;
-background-color: rgba(255, 255, 255, 0.217);
-padding:20px 20px;
-text-align: center;
-  letter-spacing: 1px;
-  line-height: 50px;
-  direction: rtl;
+.message {
+    margin-bottom: 15px; /* רווח בין ההודעה לשדות */
+    color: #ff4081; /* צבע טקסט של הודעות */
 }
