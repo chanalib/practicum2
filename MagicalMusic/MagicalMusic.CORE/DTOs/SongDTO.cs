@@ -18,7 +18,7 @@ namespace MagicalMusic.CORE.DTOs
         public DateTime ReleaseDate { get; set; }
 
         public int CreatorId { get; set; }
-        public string ImageUrl { get; set; }
+        public string S3Url { get; set; }
         public string Key { get; set; }  // שדה חדש למפתח ה-S3
 
     }

@@ -63,7 +63,7 @@ namespace MagicalMusic.DATA.Repositories
     //            s.Name = song.Name;
     //            s.MusicStyle = song.MusicStyle;
     //            s.SongLength = song.SongLength;
-    //            s.ImageUrl = song.ImageUrl;
+    //            s.S3Url = song.S3Url;
     //            s.ReleaseDate = song.ReleaseDate;
     //            s.Creator = song.Creator;
     //            s.creatorId = song.creatorId;

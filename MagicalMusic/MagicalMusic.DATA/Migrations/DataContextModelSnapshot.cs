@@ -40,7 +40,7 @@ namespace MagicalMusic.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("Key")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -54,6 +54,10 @@ namespace MagicalMusic.DATA.Migrations
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("S3Url")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("SongLength")
                         .HasColumnType("int");

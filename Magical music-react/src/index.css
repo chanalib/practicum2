@@ -1,16 +1,12 @@
-html,
-body,
-#root {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Arial', sans-serif;
-    color: white;
-    /* פונט מודרני */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  /* לא לשים כאן display:flex או לפחות לא עם align-items ו justify-content שמרכזים */
+  direction: rtl;
 }
+
 
 .music-login-form {
     background: linear-gradient(to right, #3f334b82, #17171744);
@@ -35,6 +31,7 @@ body,
 .music-login-header {
     text-align: center;
     margin-bottom: 20px;
+    background-color: #c8c4c49f;
 }
 
 .music-login-header h2 {
@@ -165,17 +162,61 @@ label {
   --pink-700: #be185d;
 }
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 50;
-    transition: all 0.3s;
-    background-color: transparent; /* רקע שקוף */
-    padding: 1rem 0; /* רווח פנימי */
-    display: flex; /* תצוגה של flex */
-    justify-content: space-around; /* רווח שווה בין האלמנטים */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px; /* גובה ה-header */
+  z-index: 100;
+  background-color: transparent;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  user-select: none;
+  transition: background-color 0.3s, padding 0.3s;
 }
+
+.main-content {
+  padding-top: 100px; /* דוחף את התוכן מתחת ל-header */
+  min-height: 100vh;
+
+  position: relative;
+  z-index: 1;
+}
+
+.header-nav {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: flex-end; /* כפתורים בצד ימין */
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.header-button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: color 0.3s;
+}
+
+.header-button:hover {
+  color: #ff4081;
+}
+
 
 .header a {
     color: white; /* צבע טקסט לבן */
@@ -190,12 +231,13 @@ label {
     transform: scale(1.1); /* הגדלה קלה במעבר עכבר */
 }
 
+
 .header.scrolled {
-  background-color: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  padding: 0.5rem 0;
-  box-shadow: 0 4px 10px rgba(148, 63, 189, 0.1);
+  background-color: rgba(0, 0, 0, 0.6);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding: 0.75rem 0;
 }
+
 
 .header.default {
   background-color: transparent;

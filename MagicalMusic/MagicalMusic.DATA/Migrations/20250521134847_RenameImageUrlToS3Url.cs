@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MagicalMusic.DATA.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrationName : Migration
+    public partial class RenameImageUrlToS3Url : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -61,11 +61,13 @@ namespace MagicalMusic.DATA.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     MusicStyle = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    SongLength = table.Column<TimeSpan>(type: "time(6)", nullable: false),
+                    SongLength = table.Column<int>(type: "int", nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "longtext", nullable: false)
+                    S3Url = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    creatorId = table.Column<int>(type: "int", nullable: false)
+                    creatorId = table.Column<int>(type: "int", nullable: false),
+                    Key = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {

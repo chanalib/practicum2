@@ -7,26 +7,27 @@ import Home from './components/before/Home';
 import AllSongs from './components/before/AllSongs';
 import Creators from './components/before/Creators';
 import Songs from './components/before/Songs';
+import { MusicHeader } from './components/music-header';
+
 const App = () => {
-    
   return (
-
-      <UserProvider>
-          <Router>
-              <MusicAnimation /> {/* הקנבס מוצג קודם כך שהוא יהיה הרקע */}
-              <Routes>
-                  <Route path="/" element={<Login />} />
-                  <Route path="/login" element={<Login/>} />
-                  <Route path="/register" element={<Register/>} />
-                  <Route path="/home" element={<Home />} />
-
-                    <Route path="/songs" element={<AllSongs />} />
-                  <Route path="/creators" element={<Creators />} />
-                  <Route path="/songs/:creatorId" element={<Songs />} />
-              </Routes>
-          </Router>
-      </UserProvider>
-   
+    <UserProvider>
+      <Router>
+        <MusicAnimation /> {/* רקע קנבס */}
+        <MusicHeader onLogout={() => console.log('logout')} />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/songs" element={<AllSongs />} />
+            <Route path="/creators" element={<Creators />} />
+            <Route path="/songs/:creatorId" element={<Songs />} />
+          </Routes>
+        </main>
+      </Router>
+    </UserProvider>
   );
 };
 

@@ -41,6 +41,8 @@ namespace MagicalMusic.SERVICE
             var song = await _songRepository.GetByIdAsync(id);
             return song != null ? _mapper.Map<SongDTO>(song) : null;
         }
+    }
+}
 
         //public async Task<IEnumerable<Song>> GetAllAsync() => await _songRepository.GetAllAsync();
         //public async Task<Song> GetByIdAsync(int id) => await _songRepository.GetByIdAsync(id);
@@ -57,7 +59,7 @@ namespace MagicalMusic.SERVICE
         //        MusicStyle = songDto.MusicStyle,
         //        SongLength = songDto.SongLength,
         //        ReleaseDate = songDto.ReleaseDate,
-        //        ImageUrl = songDto.ImageUrl,
+        //        S3Url = songDto.S3Url,
         //        creatorId = songDto.CreatorId
         //    };
 
@@ -72,5 +74,3 @@ namespace MagicalMusic.SERVICE
         //    return await _songRepository.UpdateAsync(id, songMap);
         //}
         //public async Task DeleteAsync(int id) => await _songRepository.DeleteAsync(id);
-    }
-}

@@ -40,6 +40,9 @@ namespace MagicalMusic.API.Controllers
             var created = await _songService.AddAsync(songDto);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
+    }
+}
+
         //  [Authorize(Roles = "Admin")]
 
         //[HttpGet("byCreator/{creatorId}")]
@@ -76,5 +79,3 @@ namespace MagicalMusic.API.Controllers
         //    await _songService.DeleteAsync(id);
         //    return NoContent();
         //}
-    }
-}

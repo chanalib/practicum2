@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "k8LMjD4sxB0=",
+  "dgSpecHash": "XrqIH5xXBvM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.API\\MagicalMusic.API.csproj",
+  "projectFilePath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.API\\MagicalMusic.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user1\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

@@ -1,5 +1,5 @@
 import { MusicBackgroundAnimation } from "../../components/music-background-animation";
-import { MusicHeader } from "../../components/music-header";
+import { MusicHeader } from "../../components/before/music-header";
 import { useNavigate } from "react-router-dom"; 
 
 export default function AboutPage() {

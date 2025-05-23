@@ -19,7 +19,7 @@ namespace MagicalMusic.CORE.Models
 
         public DateTime ReleaseDate { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string S3Url { get; set; }
         public int creatorId { get; set; }
 
         public Creator Creator { get; set; }

@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MagicalMusic.SERVICE
-build_property.ProjectDir = C:\Users\user1\Documents\שיעורי בית בתכנות\תשפה\פרקטיקום 2\practicum2\MagicalMusic\MagicalMusic.SERVICE\
+build_property.ProjectDir = C:\Users\user1\Documents\שיעורי בית בתכנות\תשפה\פרקטיקום 2\MagicalMusic\MagicalMusic.SERVICE\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

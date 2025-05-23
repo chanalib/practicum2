@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MagicalMusic.DATA.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250520232728_ChangeSongLengthToInt")]
-    partial class ChangeSongLengthToInt
+    [Migration("20250521134847_RenameImageUrlToS3Url")]
+    partial class RenameImageUrlToS3Url
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,7 @@ namespace MagicalMusic.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("Key")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -57,6 +57,10 @@ namespace MagicalMusic.DATA.Migrations
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("S3Url")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("SongLength")
                         .HasColumnType("int");

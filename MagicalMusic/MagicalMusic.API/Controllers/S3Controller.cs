@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading.Tasks;
 using MagicalMusic.CORE.DTOs;
 using System;
+using System.Linq;
 
 namespace MagicalMusic.API.Controllers
 {
@@ -29,6 +30,12 @@ namespace MagicalMusic.API.Controllers
             if (request.File == null || request.File.Length == 0)
                 return BadRequest("File is empty.");
 
+            var allowedExtensions = new[] { ".mp3", ".wav" };
+            var fileExtension = Path.GetExtension(request.File.FileName).ToLower();
+
+            if (!allowedExtensions.Contains(fileExtension))
+                return BadRequest("רק קבצי MP3 או WAV מותרים.");
+
             using var stream = request.File.OpenReadStream();
 
             var (url, key) = await _s3Service.UploadFileAsync(stream, request.File.FileName);
@@ -40,10 +47,9 @@ namespace MagicalMusic.API.Controllers
                 SongLength = (int)request.SongLength.TotalSeconds,
                 ReleaseDate = request.ReleaseDate,
                 CreatorId = request.CreatorId,
-                ImageUrl = url,
+                S3Url = url,
                 Key = key
             };
-
 
             var savedSong = await songService.AddAsync(songDto);
 
@@ -59,94 +65,27 @@ namespace MagicalMusic.API.Controllers
         [HttpGet("download")]
         public async Task<IActionResult> DownloadFile([FromQuery] string key)
         {
-            if (string.IsNullOrEmpty(key))
-                return BadRequest("Key is required");
+            if (string.IsNullOrWhiteSpace(key))
+                return BadRequest("Key is required.");
 
-            // לא לפתוח את הקידוד
             var response = await _s3Service.GetFileAsync(key);
-            if (response == null)
-                return NotFound();
+            if (response == null || response.ResponseStream == null || response.Headers.ContentLength == 0)
+                return NotFound("File not found or empty.");
 
-            return File(response.ResponseStream, response.Headers.ContentType, Path.GetFileName(key));
+            var contentType = response.Headers.ContentType ?? "application/octet-stream";
+            var fileName = Path.GetFileName(key);
+
+            return File(response.ResponseStream, contentType, fileName);
         }
 
-        [HttpGet("presigned-url/{key}")]
-        public IActionResult GetPresignedUrl(string key)
+
+        [HttpGet("presigned-url")]
+        public IActionResult GetPresignedUrl([FromQuery] string key, [FromQuery] bool download = false)
         {
-            var url = _s3Service.GetPresignedUrl(key);
+            var url = _s3Service.GetPresignedUrl(key, download);
             return Ok(url);
         }
 
     }
 }
 
-
-//// API להורדת קובץ
-//[HttpGet("download/{fileName}")]
-//public async Task<IActionResult> DownloadFile(string fileName)
-//{
-//    var stream = await _s3Service.DownloadFileAsync(fileName);
-//    return File(stream, "audio/mpeg", fileName); // שונה ל-"audio/mpeg" עבור קבצי MP3
-//}
-
-//[HttpDelete("delete/{fileName}")]
-//public async Task<IActionResult> DeleteFile(string fileName)
-//{
-//    var success = await _s3Service.DeleteFileAsync(fileName);
-//    if (!success)
-//        return NotFound("File not found.");
-
-//    return Ok("File deleted successfully.");
-//}
-
-
-//// API לקבלת רשימת קבצים
-//[HttpGet("files")]
-//public async Task<IActionResult> ListFiles()
-//{
-//    var files = await _s3Service.ListFilesAsync();
-//    return Ok(files);
-//}
-
-//[HttpGet("byCreator/{creatorId}")]
-//public async Task<IActionResult> GetSongsByCreatorId(int creatorId)
-//{
-//    var songs = await _s3Service.GetByCreatorIdAsync(creatorId);
-
-//    if (songs == null || !songs.Any())
-//    {
-//        return NotFound("No songs found for this creator.");
-//    }
-
-//    return Ok(songs);
-//}
-
-//[HttpGet("presigned-url")]
-//public async Task<IActionResult> GetPresignedUrl([FromQuery] string fileName)
-//{
-//    if (string.IsNullOrEmpty(fileName))
-//        return BadRequest("שם הקובץ נדרש");
-
-//    try
-//    {
-//        string url = await _s3Service.GetPreSignedUrlAsync(fileName);
-//        return Ok(new { url });
-//    }
-//    catch (AmazonS3Exception ex)
-//    {
-//        return StatusCode(500, $"שגיאה ביצירת URL עם הרשאות: {ex.Message}");
-//    }
-//    catch (Exception ex)
-//    {
-//        return StatusCode(500, $"שגיאה כללית: {ex.Message}");
-//    }
-//}
-//[HttpGet("s3/test")]
-//public async Task<IActionResult> TestS3()
-//{
-//    var isConnected = await _s3Service.TestS3ConnectionAsync();
-//    if (isConnected)
-//        return Ok("S3 connection successful.");
-//    else
-//        return StatusCode(500, "Failed to connect to S3.");
-//}

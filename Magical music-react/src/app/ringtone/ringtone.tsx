@@ -2,7 +2,7 @@
 
 import { useNavigate } from 'react-router-dom'; // עדכון כאן
 import { MusicBackgroundAnimation } from "../../components/music-background-animation"
-import { MusicHeader } from "../../components/music-header"
+import { MusicHeader } from "../../components/before/music-header"
 
 export default function RingtonePage() {
   const navigate = useNavigate(); // עדכון כאן

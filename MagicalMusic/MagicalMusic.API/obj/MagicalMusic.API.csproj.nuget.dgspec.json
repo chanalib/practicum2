@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.API\\MagicalMusic.API.csproj": {}
+    "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.API\\MagicalMusic.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.API\\MagicalMusic.API.csproj": {
+    "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.API\\MagicalMusic.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.API\\MagicalMusic.API.csproj",
+        "projectUniqueName": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.API\\MagicalMusic.API.csproj",
         "projectName": "MagicalMusic.API",
-        "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.API\\MagicalMusic.API.csproj",
+        "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.API\\MagicalMusic.API.csproj",
         "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.API\\obj\\",
+        "outputPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,11 +33,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj": {
-                "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj"
+              "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj": {
+                "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj"
               },
-              "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.SERVICE\\MagicalMusic.SERVICE.csproj": {
-                "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.SERVICE\\MagicalMusic.SERVICE.csproj"
+              "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.SERVICE\\MagicalMusic.SERVICE.csproj": {
+                "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.SERVICE\\MagicalMusic.SERVICE.csproj"
               }
             }
           }
@@ -143,14 +143,14 @@
         }
       }
     },
-    "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj": {
+    "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj",
+        "projectUniqueName": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj",
         "projectName": "MagicalMusic.CORE",
-        "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj",
+        "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj",
         "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.CORE\\obj\\",
+        "outputPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.CORE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -222,14 +222,14 @@
         }
       }
     },
-    "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj": {
+    "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj",
+        "projectUniqueName": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj",
         "projectName": "MagicalMusic.DATA",
-        "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj",
+        "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj",
         "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.DATA\\obj\\",
+        "outputPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.DATA\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -251,8 +251,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj": {
-                "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj"
+              "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj": {
+                "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj"
               }
             }
           }
@@ -329,14 +329,14 @@
         }
       }
     },
-    "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.SERVICE\\MagicalMusic.SERVICE.csproj": {
+    "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.SERVICE\\MagicalMusic.SERVICE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.SERVICE\\MagicalMusic.SERVICE.csproj",
+        "projectUniqueName": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.SERVICE\\MagicalMusic.SERVICE.csproj",
         "projectName": "MagicalMusic.SERVICE",
-        "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.SERVICE\\MagicalMusic.SERVICE.csproj",
+        "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.SERVICE\\MagicalMusic.SERVICE.csproj",
         "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.SERVICE\\obj\\",
+        "outputPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.SERVICE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -358,8 +358,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj": {
-                "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\practicum2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj"
+              "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj": {
+                "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj"
               }
             }
           }
