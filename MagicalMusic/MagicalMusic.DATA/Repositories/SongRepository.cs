@@ -21,12 +21,6 @@ namespace MagicalMusic.DATA.Repositories
 
 
 
-
-        //public async Task<IEnumerable<Song>> GetAllAsync() 
-        //    => await _context.Songs
-            
-        //   .Include(s => s.Creator)
-        //    .Include(s => s.Users).ToListAsync();
         public async Task<Song> AddAsync(Song song)
         {
 
@@ -38,44 +32,14 @@ namespace MagicalMusic.DATA.Repositories
 
         public async Task<IEnumerable<Song>> GetAllAsync()
         {
-            return await _context.Songs.ToListAsync();
+            return await _context.Songs.Include(s => s.Creator).ToListAsync();
         }
+
 
         public async Task<Song?> GetByIdAsync(int id)
         {
             return await _context.Songs.FindAsync(id);
         }
-    //    public async Task<IEnumerable<Song>> GetByCreatorIdAsync(int creatorId)
-    //    {
-    //        return await _context.Songs.Where(s => s.creatorId == creatorId).ToListAsync();
-    //    }
-
-    //    public async Task<IEnumerable<Song>> GetSongsByGenreAsync(string MusicStyle) => await _context.Songs.Where(s => s.MusicStyle == MusicStyle).ToListAsync();
-
-
-    //    public async Task<Song> UpdateAsync(int id, Song song)
-    //    {
-    //        Song s = await _context.Songs.SingleOrDefaultAsync(act => act.Id == id);
-    //        if (s == null) return null;
-    //        else
-    //        {
-
-    //            s.Name = song.Name;
-    //            s.MusicStyle = song.MusicStyle;
-    //            s.SongLength = song.SongLength;
-    //            s.S3Url = song.S3Url;
-    //            s.ReleaseDate = song.ReleaseDate;
-    //            s.Creator = song.Creator;
-    //            s.creatorId = song.creatorId;
-    //            // s.SingerId = song.SingerId;
-    //            //s.User = song.User;
-
-    //        }
-    //        await _context.SaveChangesAsync();
-    //        return s;
-
-    //    }
-
-    //    public async Task DeleteAsync(int id) { var entity = await _context.Songs.FindAsync(id); if (entity != null) { _context.Songs.Remove(entity); await _context.SaveChangesAsync(); } }
+   
     }
 }

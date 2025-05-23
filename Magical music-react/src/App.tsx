@@ -8,6 +8,8 @@ import AllSongs from './components/before/AllSongs';
 import Creators from './components/before/Creators';
 import Songs from './components/before/Songs';
 import { MusicHeader } from './components/music-header';
+import AudioRecorder from './components/before/AudioRecorder';
+import KaraokeRecorder from './components/before/KaraokeRecorder';
 
 const App = () => {
   return (
@@ -24,6 +26,8 @@ const App = () => {
             <Route path="/songs" element={<AllSongs />} />
             <Route path="/creators" element={<Creators />} />
             <Route path="/songs/:creatorId" element={<Songs />} />
+            <Route path="/AudioRecorder" element={<AudioRecorder/>}/>
+            <Route path="/KaraokeRecorder" element={<KaraokeRecorder/>}/>
           </Routes>
         </main>
       </Router>

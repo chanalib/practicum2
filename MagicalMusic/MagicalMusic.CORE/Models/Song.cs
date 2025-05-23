@@ -26,6 +26,9 @@ namespace MagicalMusic.CORE.Models
 
         public ICollection<User> Users { get; set; }
         public string Key { get; set; }  // שדה חדש למפתח ה-S3
+        public string? ArtistName { get; set; }      // שם האמן
+        public string? Description { get; set; }     // תיאור השיר
+
 
     }
 }

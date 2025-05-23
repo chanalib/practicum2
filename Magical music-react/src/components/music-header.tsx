@@ -26,6 +26,9 @@ export function MusicHeader({ onLogout }: MusicHeaderProps) {
     { name: "אודות", path: "/about" },
     { name: "בקשת שיר", path: "/request" },
     { name: "רינגטון", path: "/ringtone" },
+    { name: "הקלטה", path: "/AudioRecorder" },
+    { name: "קריוקי", path: "/KaraokeRecorder" },
+
   ]
 
   return (

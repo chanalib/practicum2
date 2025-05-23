@@ -20,6 +20,9 @@ namespace MagicalMusic.CORE.DTOs
         public int CreatorId { get; set; }
         public string S3Url { get; set; }
         public string Key { get; set; }  // שדה חדש למפתח ה-S3
+        public string? ArtistName { get; set; }
+        public string? Description { get; set; }
+
 
     }
 }

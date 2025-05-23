@@ -40,6 +40,14 @@ namespace MagicalMusic.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("ArtistName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Key")
                         .IsRequired()
                         .HasColumnType("longtext");
