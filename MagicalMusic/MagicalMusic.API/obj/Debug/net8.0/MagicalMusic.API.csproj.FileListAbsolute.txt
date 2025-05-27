@@ -696,3 +696,9 @@ C:\Users\user1\Documents\שיעורי בית בתכנות\תשפה\פרקטיק�
 C:\Users\user1\Documents\שיעורי בית בתכנות\תשפה\פרקטיקום 2\MagicalMusic\MagicalMusic.API\obj\Debug\net8.0\MagicalMusic.API.pdb
 C:\Users\user1\Documents\שיעורי בית בתכנות\תשפה\פרקטיקום 2\MagicalMusic\MagicalMusic.API\obj\Debug\net8.0\MagicalMusic.API.genruntimeconfig.cache
 C:\Users\user1\Documents\שיעורי בית בתכנות\תשפה\פרקטיקום 2\MagicalMusic\MagicalMusic.API\obj\Debug\net8.0\ref\MagicalMusic.API.dll
+C:\Users\user1\Documents\שיעורי בית בתכנות\תשפה\פרקטיקום 2\MagicalMusic\MagicalMusic.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\user1\Documents\שיעורי בית בתכנות\תשפה\פרקטיקום 2\MagicalMusic\MagicalMusic.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\user1\Documents\שיעורי בית בתכנות\תשפה\פרקטיקום 2\MagicalMusic\MagicalMusic.API\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\user1\Documents\שיעורי בית בתכנות\תשפה\פרקטיקום 2\MagicalMusic\MagicalMusic.API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\user1\Documents\שיעורי בית בתכנות\תשפה\פרקטיקום 2\MagicalMusic\MagicalMusic.API\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\user1\Documents\שיעורי בית בתכנות\תשפה\פרקטיקום 2\MagicalMusic\MagicalMusic.API\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll

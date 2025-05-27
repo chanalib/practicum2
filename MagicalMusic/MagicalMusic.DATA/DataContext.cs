@@ -9,6 +9,8 @@ namespace MagicalMusic.DATA
         public DbSet<User> Users { get; set; }
         public DbSet<Song> Songs { get; set; }
         public DbSet<Creator> Creators { get; set; }
+        public DbSet<Message> Messages { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

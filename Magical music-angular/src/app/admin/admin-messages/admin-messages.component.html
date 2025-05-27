@@ -1,0 +1,6 @@
+<div *ngFor="let message of messages" class="message-box">
+    <h4>{{ message.senderName }} ({{ message.senderEmail }})</h4>
+    <p>{{ message.content }}</p>
+    <small>{{ message.sentAt | date:'short' }}</small>
+  </div>
+  

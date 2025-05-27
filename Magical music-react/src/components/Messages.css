@@ -1,0 +1,279 @@
+.contact-form {
+    max-width: 650px;
+    margin: auto;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .contact-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #f472b6, #60a5fa, #10b981);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 4s infinite ease-in-out;
+    margin-top: 100px;
+  }
+  
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .input-field {
+    padding: 0.9rem 1.2rem;
+    font-size: 1rem;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+    box-shadow: 0 0 5px rgba(83, 130, 232, 0.8);
+    width: 100%;
+  }
+  
+  .input-field::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .input-field:focus {
+    border-color: #ec4899;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+  }
+  
+  .half-width {
+    width: 50%;
+  }
+  
+  .message-field {
+    min-height: 180px;
+    resize: vertical;
+  }
+  
+  .contact-button {
+    align-self: center;
+    padding: 1.1rem 3rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #8b5cf6, #ec4899, #22d3ee);
+    background-size: 200%;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(236, 72, 153, 0.35);
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+  }
+  
+  .contact-button:hover {
+    background-position: right center;
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.5);
+  }
+  
+  /* רספונסיבי */
+  @media (max-width: 768px) {
+    .form-row {
+      flex-direction: column;
+    }
+    .half-width {
+      width: 100%;
+    }
+  }
+  
+  /* הודעת הצלחה */
+  .success-message {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    animation: growFade 2s ease-out forwards;
+    z-index: 20;
+    pointer-events: none;
+  }
+  
+  @keyframes growFade {
+    0% {
+      transform: translate(-50%, -50%) scale(0.5);
+      opacity: 0.2;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.5);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(2);
+      opacity: 0;
+    }
+  }
+  
+  /* קונפטי */
+  .confetti {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 2rem;
+    animation: confettiFall 2.5s ease-out forwards;
+    pointer-events: none;
+    z-index: 15;
+  }
+  
+  @keyframes confettiFall {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--x), var(--y)) rotate(720deg);
+      opacity: 0;
+    }
+  }
+  .lightning {
+    position: absolute;
+    right: -100px;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to left, #fff, #60a5fa, #ec4899, #10b981);
+    box-shadow: 0 0 15px #fff;
+    border-radius: 2px;
+    animation: lightningTravel 2s ease-out forwards;
+    z-index: 30;
+    opacity: 0;
+  }
+  
+  @keyframes lightningTravel {
+    0% {
+      transform: translateX(0) translateY(0);
+      opacity: 1;
+      filter: brightness(1.5);
+    }
+    25% {
+      transform: translateX(-25vw) translateY(-10px);
+      opacity: 0.9;
+    }
+    50% {
+      transform: translateX(-50vw) translateY(10px);
+      opacity: 0.7;
+      filter: brightness(2.5);
+    }
+    75% {
+      transform: translateX(-75vw) translateY(-5px);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateX(-100vw) translateY(0);
+      opacity: 0;
+      filter: brightness(1);
+    }
+  }
+  
+  
+  .confetti-bolt {
+    position: absolute;
+    right: -100px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    animation: boltTravel 2s ease-out forwards;
+    z-index: 100;
+    opacity: 0.9;
+    box-shadow: 0 0 12px white;
+  }
+  
+  @keyframes boltTravel {
+    0% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    25% {
+      transform: translateX(-25vw) translateY(-15px) rotate(45deg);
+    }
+    50% {
+      transform: translateX(-50vw) translateY(15px) rotate(-45deg);
+      opacity: 0.8;
+    }
+    75% {
+      transform: translateX(-75vw) translateY(-10px) rotate(30deg);
+    }
+    100% {
+      transform: translateX(-100vw) translateY(0) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  
+  .success-text {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to right, #22d3ee, #a78bfa, #f472b6);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: popAndFade 3s ease-out forwards;
+    z-index: 200;
+    pointer-events: none;
+  }
+  
+  @keyframes popAndFade {
+    0% {
+      transform: translate(-50%, -50%) scale(0.5);
+      opacity: 0;
+    }
+    30% {
+      transform: translate(-50%, -50%) scale(1.3);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0;
+    }
+  }
+  body.flash {
+    animation: screenFlash 0.4s ease-in-out;
+  }
+  
+  @keyframes screenFlash {
+    0% {
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+  .contact-form.shake {
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  

@@ -1,3 +1,4 @@
+<div class="upload-form">
 <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
   <div>
     <label>שם השיר:</label>
@@ -37,3 +38,4 @@
     <span *ngIf="isSubmitting" class="spinner"></span>
   </button>
 </form>
+</div>

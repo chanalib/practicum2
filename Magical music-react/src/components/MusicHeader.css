@@ -1,0 +1,328 @@
+/* Header בסיסי */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  z-index: 1000;
+  background: linear-gradient(to right, #ff9d60, #65f0ff, rgb(174, 251, 85), rgb(255, 18, 211), rgb(251, 44, 44));
+  border-radius: 0 0 20px 20px;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+}
+
+.header.scrolled {
+  background: rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 0;
+  border-radius: 0 0 10px 10px;
+}
+
+.header.default {
+  background: transparent;
+  padding: 1rem 0;
+}
+
+/* מיכל כללי */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* פריסה גמישה */
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+/* ניווט */
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-item {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.nav-item:hover {
+  transform: scale(1.1);
+  color: #ffd6f3;
+}
+
+.nav-item .underline {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #ffffff;
+  transition: width 0.3s;
+}
+
+.nav-item:hover .underline {
+  width: 100%;
+}
+
+/* כפתור התנתקות - משמש בתוך התפריט */
+.logout-button-menu {
+  background: #ff4444;
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button-menu:hover {
+  background: #cc0000;
+}
+
+/* כפתור התנתקות נפרד (אם קיים) */
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.logout-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* כותרת מוזיקה */
+.music-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  z-index: 1000;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+}
+
+.header-container {
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header-content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-section {
+  flex-shrink: 0;
+}
+
+.logo-title {
+  font-size: 25px;
+  font-weight: 900;
+  margin: 0;
+}
+
+.main-nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.nav-text {
+  font-size: 0.9rem;
+}
+
+.nav-underline {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover .nav-underline {
+  width: 80%;
+}
+
+.header-actions {
+  flex-shrink: 0;
+}
+
+.logout-text {
+  font-size: 0.9rem;
+}
+
+/* עיגול פרופיל */
+.profile-circle {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #ff9d60, #65f0ff, #affb55, #ff12d3, #fb2c2c);
+  border-radius: 50%;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  user-select: none;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+.profile-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.profile-menu {
+  position: absolute;
+  top: 50px;
+  left: 90%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  width: 180px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 2000;
+  word-break: break-word;
+}
+
+/* מידע פרופיל */
+.profile-info p {
+  margin: 0;
+  font-weight: 600;
+  color: #333;
+}
+
+.profile-info .email {
+  font-size: 0.85rem;
+  color: #666;
+  word-break: break-word;
+}
+
+/* קישור לאזור אישי */
+.profile-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.25rem 0;
+}
+
+.profile-link:hover {
+  text-decoration: underline;
+}
+
+/* רספונסיביות */
+@media (max-width: 1024px) {
+  .main-nav {
+    gap: 1rem;
+  }
+
+  .nav-text {
+    display: none;
+  }
+
+  .nav-link {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .music-header {
+    height: 70px;
+  }
+
+  .header-container {
+    padding: 0 1rem;
+  }
+
+  .logo-title {
+    font-size: 1.4rem;
+  }
+
+  .main-nav {
+    gap: 0.5rem;
+  }
+
+  .logout-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .logout-text {
+    display: none;
+  }
+}
+
+/* אופציונלי - שינוי מיקום התפריט במסכים קטנים */
+@media (max-width: 480px) {
+  .profile-menu {
+    right: auto;
+    left: 0;
+    transform: translateX(0);
+    width: 180px;
+  }
+}

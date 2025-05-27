@@ -33,6 +33,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj": {
+                "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj"
+              },
               "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj": {
                 "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj"
               },
@@ -394,6 +397,10 @@
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",
               "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[9.0.5, )"
             },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",

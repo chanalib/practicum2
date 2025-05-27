@@ -1,0 +1,86 @@
+.canvas-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* מתחת לכל התוכן */
+  pointer-events: none; /* שהקאנבס לא יפריע ללחיצות על התוכן */
+  pointer-events: none; /* כדי ש- clicks יעברו מעליה */
+
+}
+.profile-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #ff9d60, #65f0ff,rgb(174, 251, 85),rgb(255, 18, 211),rgb(251, 44, 44));
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: popIn 0.4s ease;
+}
+
+.profile-circle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(236, 72, 153, 0.6);
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
+  width: 200px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  z-index: 10;
+}
+
+.dropdown-menu.open {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.dropdown-header {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  background-color: #f9f9f9;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 10px 16px;
+  text-align: right;
+  color: #333;
+  text-decoration: none;
+  background-color: white;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-item.logout {
+  color: #db2777;
+}

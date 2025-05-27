@@ -1,0 +1,18 @@
+header {
+  background-color: #282c34;
+  padding: 10px;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+nav a.active-link {
+  text-decoration: underline;
+  color: #61dafb;
+}

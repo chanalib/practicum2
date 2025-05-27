@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SongService } from '../../services/song.service';
+import { SongService } from '../../services/upLoad/song.service';
 
 @Component({
   selector: 'app-song-upload',

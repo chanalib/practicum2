@@ -1,0 +1,232 @@
+/* Karaoke Recorder Styles */
+.karaoke-container {
+  min-height: calc(100vh - 90px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  padding-top: 110px; /* מתחת ל-header */
+}
+
+.karaoke-card {
+  max-width: 500px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  padding: 2rem; /* הקטנת הפדינג */
+  animation: slideInUp 0.8s ease-out;
+}
+
+.karaoke-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.karaoke-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ec4899, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.karaoke-subtitle {
+  color: #d1d5db;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.song-upload-section {
+  margin-bottom: 2rem;
+}
+
+.upload-area {
+  border: 2px dashed rgba(236, 72, 153, 0.5);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.upload-area:hover {
+  border-color: rgba(236, 72, 153, 0.8);
+  background: rgba(236, 72, 153, 0.05);
+}
+
+.upload-label {
+  display: block;
+  cursor: pointer;
+  width: 100%;
+}
+
+.upload-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #ec4899;
+}
+
+.upload-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #d1d5db;
+}
+
+.upload-input {
+  display: none;
+}
+
+.loading-indicator {
+  text-align: center;
+  color: #ec4899;
+  font-weight: 600;
+  margin-top: 1rem;
+  animation: pulse 1.5s infinite;
+}
+
+.karaoke-controls {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.karaoke-record-button {
+  background: linear-gradient(135deg, #ec4899, #8b5cf6);
+  border: none;
+  color: white;
+  padding: 1.2rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 220px;
+}
+
+.karaoke-record-button.recording {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  animation: recordingPulse 1.5s infinite;
+}
+
+.karaoke-record-button.disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+}
+
+.karaoke-record-button:hover:not(.disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(236, 72, 153, 0.4);
+}
+
+.recording-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 15px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  color: #fca5a5;
+  font-weight: 600;
+}
+
+.recording-animation {
+  font-size: 1.2rem;
+  animation: pulse 1s infinite;
+}
+
+.karaoke-result {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.result-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #10b981;
+  margin-bottom: 1.5rem;
+}
+
+.karaoke-player {
+  width: 100%;
+  height: 50px;
+  border-radius: 15px;
+  outline: none;
+  margin-bottom: 1.5rem;
+}
+
+.result-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.save-button,
+.share-button,
+.new-recording-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.save-button:hover,
+.share-button:hover,
+.new-recording-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .karaoke-container {
+    padding: 1rem;
+    padding-top: 100px;
+  }
+
+  .karaoke-card {
+    padding: 2rem;
+  }
+
+  .karaoke-title {
+    font-size: 1.8rem;
+  }
+
+  .karaoke-record-button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    min-width: 200px;
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .upload-area {
+    padding: 1.5rem;
+  }
+}
+
+
+
+

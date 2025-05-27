@@ -1,9 +1,17 @@
 import type React from "react"
 import "./globals.css"
 
-export const metadata = {
-  title: "Magical Music",
-  description: "חווית מוזיקה יוקרתית",
+import { Inter } from "next/font/google";
+import type { Metadata } from "next";
+// import { ThemeProvider } from "next-themes";
+import { ThemeProvider } from "next-themes";
+
+
+const inter = Inter({ subsets: ["latin"] })
+
+export const metadata: Metadata = {
+  title: "Music Platform Login",
+  description: "Login to the music platform as a user or administrator",
 }
 
 export default function RootLayout({
@@ -12,8 +20,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="he" dir="rtl">
-      <body className="bg-black text-white">{children}</body>
+    <html lang="en">
+      <body className={inter.className}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

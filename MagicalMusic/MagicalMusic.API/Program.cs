@@ -118,6 +118,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<S3Service>(); // כאשר IS3Service הוא הממשק
+builder.Configuration.AddUserSecrets<Program>();
+builder.Services.AddTransient<TranscriptionService>();
+
 // רישום שירותי AWS
 
 
@@ -172,6 +175,8 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // בניית האפליקציה
 var app = builder.Build();
+    
+app.UseCors("AllowLocalhost4200");
 
 if (app.Environment.IsDevelopment())
 {

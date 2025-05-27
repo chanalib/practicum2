@@ -34,6 +34,32 @@ namespace MagicalMusic.DATA.Migrations
                     b.ToTable("Creators");
                 });
 
+            modelBuilder.Entity("MagicalMusic.CORE.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SenderEmail")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SenderName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("MagicalMusic.CORE.Models.Song", b =>
                 {
                     b.Property<int>("Id")
@@ -41,11 +67,9 @@ namespace MagicalMusic.DATA.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ArtistName")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Key")
