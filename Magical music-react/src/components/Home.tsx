@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import "./magical-home.css"
+import "./Home.css"
 import { Link } from "react-router-dom"
 import Footer from "./footer"
 const Home = () => {
@@ -115,10 +115,9 @@ const Home = () => {
           <div className="hero-buttons">
             <Link to="/songs">
               <button className="cta-button primary">
-                ▶️ התחילו לשמוע עכשיו
+                 התחילו לשמוע עכשיו ▶️
               </button>
             </Link>
-          <button className="cta-button secondary">📱 הורידו את האפליקציה</button>
           </div>
         </div>
       </section>
@@ -200,7 +199,10 @@ const Home = () => {
             <span className="gradient-text">מוכנים להתחיל?</span>
           </h2>
           <p className="cta-description">הצטרפו למיליוני המשתמשים שכבר נהנים מהחוויה המוזיקלית הטובה ביותר</p>
+          <Link to="/songs">
           <button className="cta-button-large">⭐ התחילו את המסע המוזיקלי ✨</button>
+            </Link>
+          
         </div>
       </section>
       <Footer />

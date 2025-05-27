@@ -1,113 +1,150 @@
-import  { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import "./MusicHeader.css";
+"use client"
+import "./MusicHeader.css"
+import { useState, useRef, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
-type NavItem = {
-  name: string;
-  path: string;
-};
+interface User {
+  Name?: string
+  email?: string
+}
 
-type User = {
-  firstName?: string;
-  email?: string;
-} | null;
-
-type MusicHeaderProps = {
-  onLogout: () => void;
-  user: User;
-};
-
-const navItems: NavItem[] = [
-  { name: "בית", path: "/home" },
-  { name: "שירים", path: "/songs" },
-  { name: "זמרים", path: "/creators" },
-  { name: "הקלטה", path: "/AudioRecorder" },
-  { name: "קריוקי", path: "/KaraokeRecorder" },
-  { name: "רינגטון", path: "/ringtone" },
-  { name: "בקשת שיר", path: "/request" },
-  { name: "תמלול שיר", path: "/Transcription" },
-];
+interface MusicHeaderProps {
+  onLogout: () => void
+  user?: User | null
+}
 
 const MusicHeader = ({ onLogout, user }: MusicHeaderProps) => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [profileHover, setProfileHover] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate()
+
+  const navItems = [
+    { name: "שירים", path: "/songs" },
+    { name: "זמרים", path: "/artists" },
+    { name: "הקלטה", path: "/AudioRecorder" },
+    { name: "קריוקי", path: "/KaraokeRecorder" },
+    { name: "רינגטון", path: "/ringtone" },
+    { name: "בקשת שיר", path: "/request" },
+    { name: "תמלול", path: "/transcription" },
+  ]
 
   const firstLetter = user
-    ? (user.firstName?.charAt(0) || user.email?.charAt(0) || "").toUpperCase()
-    : "";
+    ? (user.Name?.charAt(0) || user.email?.charAt(0) || "").toUpperCase()
+    : "U"
 
-  // סגירת התפריט בלחיצה מחוץ
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMenuOpen(false);
+        setMenuOpen(false)
       }
-    };
+    }
     if (menuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside)
     }
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [menuOpen]);
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [menuOpen])
 
   return (
     <header className="music-header">
       <div className="header-container">
         <div className="header-content">
-          <div className="logo-section">
+          <a href="/home" className="logo-section">
             <h1 className="logo-title">
               <span className="gradient-text">🎵 Magical Music</span>
             </h1>
-          </div>
+          </a>
 
           <nav className="main-nav">
-            {navItems.map((item: NavItem) => (
-              <Link key={item.name} to={item.path} className="nav-link">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href="#"
+                className="nav-link"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate(item.path)
+                }}
+              >
                 <span className="nav-text">{item.name}</span>
                 <span className="nav-underline"></span>
-              </Link>
+              </a>
             ))}
           </nav>
 
           <div className="header-actions" ref={menuRef}>
-            {user && (
-              <div className="profile-wrapper">
-                <div
-                  className="profile-circle"
-                  title={user.firstName || user.email}
-                  onClick={() => setMenuOpen((prev) => !prev)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {firstLetter}
+            <div className="profile-wrapper">
+              <div
+                className={`profile-circle ${profileHover ? "hover" : ""}`}
+                title={user?.Name || user?.email || "משתמש"}
+                onClick={() => setMenuOpen((prev) => !prev)}
+                onMouseEnter={() => setProfileHover(true)}
+                onMouseLeave={() => setProfileHover(false)}
+              >
+                <span className="profile-letter">{firstLetter}</span>
+                <div className="profile-glow"></div>
+                <div className="profile-particles">
+                  <span className="particle particle-1">✨</span>
+                  <span className="particle particle-2">⭐</span>
+                  <span className="particle particle-3">💫</span>
                 </div>
-                {menuOpen && (
-                  <div className="profile-menu">
-                    <div className="profile-info">
-                      <p>{user.firstName || "משתמש"}</p>
-                      <p className="email">{user.email}</p>
-                    </div>
-                    <Link to="/profile" className="profile-link" onClick={() => setMenuOpen(false)}>
-                      אזור אישי
-                    </Link>
-                    <button
-                      className="logout-button-menu"
-                      onClick={() => {
-                        onLogout();
-                        setMenuOpen(false);
-                      }}
-                    >
-                      התנתק
-                    </button>
-                  </div>
-                )}
               </div>
-            )}
+
+              {menuOpen && (
+                <div className="profile-menu">
+                  <div className="menu-header">
+                    <div className="menu-avatar">
+                      <span>{firstLetter}</span>
+                    </div>
+                    <div className="menu-user-info">
+                      <h3 className="menu-username">{user?.Name}</h3>
+                      <p className="menu-email">{user?.email || "user@example.com"}</p>
+                    </div>
+                  </div>
+
+                  <div className="menu-divider"></div>
+
+                  <div className="menu-items">
+                    <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>
+                      <span className="menu-icon">👤</span>
+                      <span>פרופיל אישי</span>
+                    </a>
+                    <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>
+                      <span className="menu-icon">⚙️</span>
+                      <span>הגדרות</span>
+                    </a>
+                    <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>
+                      <span className="menu-icon">🎵</span>
+                      <span>השירים שלי</span>
+                    </a>
+                    <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>
+                      <span className="menu-icon">❤️</span>
+                      <span>מועדפים</span>
+                    </a>
+                  </div>
+
+                  <div className="menu-divider"></div>
+
+                  <button
+                    className="logout-button-menu"
+                    onClick={() => {
+                      onLogout()
+                      setMenuOpen(false)
+                    }}
+                  >
+                    <span className="menu-icon">🚪</span>
+                    <span>התנתק</span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
     </header>
-  );
-};
+  )
+}
 
-export { MusicHeader };
+export { MusicHeader }
