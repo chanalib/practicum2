@@ -12,6 +12,7 @@ import KaraokeRecorder from './components/KaraokeRecorder';
 import { useContext } from 'react';
 import TranscriptionPage from './components/TranscriptionPage';
 import ContactForm from './components/Messages';
+import CreatorSongs from './components/CreatorSongs';
 const AppContent = () => {
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
@@ -38,11 +39,13 @@ const AppContent = () => {
           <Route path="/home" element={isLogin ? <Home /> : <Navigate to="/login" replace />} />
           <Route path="/songs" element={isLogin ? <AllSongs /> : <Navigate to="/login" replace />} />
           <Route path="/creators" element={isLogin ? <Creators /> : <Navigate to="/login" replace />} />
+          <Route path="/creator/:id" element={isLogin ? <CreatorSongs /> : <Navigate to="/login" replace />} />
           <Route path="/songs/:creatorId" element={isLogin ? <AllSongs /> : <Navigate to="/login" replace />} />
           <Route path="/AudioRecorder" element={isLogin ? <AudioRecorder /> : <Navigate to="/login" replace />} />
           <Route path="/Transcription" element={isLogin ? <TranscriptionPage /> : <Navigate to="/login" replace />} />
           <Route path="/KaraokeRecorder" element={isLogin ? <KaraokeRecorder /> : <Navigate to="/login" replace />} />
           <Route path="/request" element={isLogin ? <ContactForm /> : <Navigate to="/login" replace />} />
+
         </Routes>
       </main>
     </>

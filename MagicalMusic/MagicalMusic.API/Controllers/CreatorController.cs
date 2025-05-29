@@ -19,7 +19,7 @@ namespace MagicalMusic.API.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<Creator>> GetAll()
+        public async Task<IEnumerable<CreatorDTO>> GetAll()
         {
             return await _creatorService.GetAllAsync();
         }

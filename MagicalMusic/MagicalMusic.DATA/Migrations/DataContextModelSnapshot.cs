@@ -29,6 +29,9 @@ namespace MagicalMusic.DATA.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("SongCount")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Creators");
@@ -69,6 +72,9 @@ namespace MagicalMusic.DATA.Migrations
                     b.Property<string>("ArtistName")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
@@ -94,12 +100,9 @@ namespace MagicalMusic.DATA.Migrations
                     b.Property<int>("SongLength")
                         .HasColumnType("int");
 
-                    b.Property<int>("creatorId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("creatorId");
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Songs");
                 });
@@ -150,7 +153,7 @@ namespace MagicalMusic.DATA.Migrations
                 {
                     b.HasOne("MagicalMusic.CORE.Models.Creator", "Creator")
                         .WithMany("Song")
-                        .HasForeignKey("creatorId")
+                        .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

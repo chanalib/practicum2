@@ -1,9 +1,5 @@
 ﻿using MagicalMusic.CORE.DTOs;
-using MagicalMusic.CORE.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MagicalMusic.CORE.Services
@@ -14,8 +10,7 @@ namespace MagicalMusic.CORE.Services
         Task<IEnumerable<SongDTO>> GetAllAsync();
         Task<SongDTO?> GetByIdAsync(int id);
 
-        //public Task<IEnumerable<Song>> GetByCreatorIdAsync(int creatorId);
-        //public Task<Song> UpdateAsync(int id, SongDTO song);
-        //public Task DeleteAsync(int id);
+        // הוסף כאן:
+        Task<IEnumerable<SongDTO>> GetByCreatorIdAsync(int creatorId);
     }
 }

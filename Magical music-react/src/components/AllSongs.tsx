@@ -1,10 +1,8 @@
 "use client"
-import "./AllSongs.css"
-"use client"
 
 import type React from "react"
 import { useEffect, useState, useRef, useMemo } from "react"
-
+import "./AllSongs.css"
 interface Song {
   id: number
   name: string
@@ -106,13 +104,12 @@ const AllSongs = () => {
         const audio = new Audio(url)
         audio.playbackRate = playbackRate
         audio.volume = volume
-        audio.preload = "auto" // טעינה מיידית
+        audio.preload = "auto"
 
         audio.ontimeupdate = () => setCurrentTime(audio.currentTime)
         audio.onloadedmetadata = () => {
           setDuration(audio.duration)
           setIsLoading(false)
-          // ניגון מיידי ברגע שהמטאדטה נטענת
           audio
             .play()
             .then(() => {
@@ -124,7 +121,6 @@ const AllSongs = () => {
             })
         }
         audio.oncanplaythrough = () => {
-          // ברגע שהשיר מוכן לניגון מלא
           setIsLoading(false)
         }
         audio.onended = () => {
@@ -155,9 +151,8 @@ const AllSongs = () => {
         audioRef.current = null
       }
     }
-  }, [currentSongIndex, songs]) // הסרת playbackRate ו-volume מהתלויות
+  }, [currentSongIndex, songs])
 
-  // פונקציה לשינוי מהירות תוך כדי ניגון
   const handleRateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const rate = Number.parseFloat(e.target.value)
     setPlaybackRate(rate)
@@ -166,7 +161,6 @@ const AllSongs = () => {
     }
   }
 
-  // פונקציה לשינוי ווליום תוך כדי ניגון
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const vol = Number.parseFloat(e.target.value)
     setVolume(vol)
@@ -254,7 +248,7 @@ const AllSongs = () => {
       {/* Header */}
       <div className="songs-header">
         <h1 className="songs-title">
-          <span className="gradient-text">ספריית השירים</span>
+          <span className="gradient-text"> גלריית השירים</span>
         </h1>
         <p className="songs-subtitle">גלו את השירים הטובים ביותר במקום אחד</p>
       </div>
@@ -311,7 +305,6 @@ const AllSongs = () => {
             >
               <div className="song-artwork">
                 <div className="artwork-placeholder">
-                  <span className="music-note"></span>
                 </div>
                 {currentSongIndex === index && isPlaying && (
                   <div className="playing-indicator">
@@ -334,26 +327,28 @@ const AllSongs = () => {
               </div>
 
               <div className="song-actions">
-              <button
-  className={`play-btn ${currentSongIndex === index && isPlaying ? "playing" : ""}`}
-  onClick={() => {
-    if (currentSongIndex === index) {
-      togglePlayPause()
-    } else {
-      setCurrentSongIndex(index)
-    }
-  }}
-  disabled={isLoading && currentSongIndex === index}
->
-  {currentSongIndex === index && isLoading ? "⏳" : currentSongIndex === index && isPlaying ? "⏸️" : "▶️"}
-</button>
-
-                <button className="download-btn" onClick={() => downloadSong(song)}>
-                  📥
-                </button>
-                <button className="favorite-btn">❤️</button>
-              </div>
-
+                <button
+                 className={`play-btn ${currentSongIndex === index && isPlaying ? "playing" : ""}`}
+                 onClick={() => {
+                   if (currentSongIndex === index) {
+                     togglePlayPause();
+                   } else {
+                     setCurrentSongIndex(index);
+                   }
+                 }}
+                 disabled={isLoading && currentSongIndex === index}
+               >
+                 {currentSongIndex === index && isLoading
+                   ? "⏳"
+                   : currentSongIndex === index && isPlaying
+                   ? "⏸️"
+                   : "▶️"}
+               </button>
+               <button className="download-btn" onClick={() => downloadSong(song)}>
+                 📥
+               </button>
+               <button className="favorite-btn">❤️</button>
+             </div>
               <div className="song-glow"></div>
             </div>
           ))}
@@ -368,7 +363,6 @@ const AllSongs = () => {
             <div className="player-song-info">
               <div className="player-artwork">
                 <div className="artwork-placeholder">
-                  <span className="music-note"></span>
                 </div>
                 {isPlaying && (
                   <div className="playing-overlay">
@@ -433,6 +427,7 @@ const AllSongs = () => {
             {/* Additional Controls */}
             <div className="player-extras">
               <div className="volume-control">
+                <span className="volume-icon">🔊</span>
                 <input
                   type="range"
                   min="0"
@@ -442,7 +437,6 @@ const AllSongs = () => {
                   onChange={handleVolumeChange}
                   className="volume-slider"
                 />
-                <span className="volume-icon">🔊</span>
               </div>
 
               <div className="speed-control">

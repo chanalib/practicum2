@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+ο»Ώusing Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
@@ -11,22 +11,27 @@ using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
 using Amazon.S3;
-using Amazon.Runtime; // δερτϊ ρτψιδ ζε
+using Amazon.Runtime; // Χ”Χ•Χ΅Χ¤Χª Χ΅Χ¤Χ¨Χ™Χ” Χ–Χ•
 using System.Configuration;
-using DotNetEnv; // δερτϊ ρτψιδ ζε
+using DotNetEnv; // Χ”Χ•Χ΅Χ¤Χª Χ΅Χ¤Χ¨Χ™Χ” Χ–Χ•
 using System.Collections;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Crmf;
+using MagicalMusic.CORE.Models;
+using System.Net.Http.Headers;
+using MagicalMusic.API.Services;
 
-Env.Load(); // θεςο ΰϊ ξωϊπι δραιαδ ξδχεαυ .env
+Env.Load(); // ΧΧ•ΧΆΧ ΧΧª ΧΧ©ΧªΧ Χ™ Χ”Χ΅Χ‘Χ™Χ‘Χ” ΧΧ”Χ§Χ•Χ‘Χ¥ .env
 var builder = WebApplication.CreateBuilder(args);
 
-// χαμ ΰϊ δξτϊηεϊ
+// Χ§Χ‘Χ ΧΧª Χ”ΧΧ¤ΧªΧ—Χ•Χª
 
 var awsAccessKeyId = builder.Configuration["AWS:AccessKey"];
 var awsSecretAccessKey = builder.Configuration["AWS:SecretKey"];
 var awsBucketName = builder.Configuration["AWS:BucketName"];
 var awsRegion = builder.Configuration["AWS:Region"];
 var jwtKey = builder.Configuration["JWT_KEY"];
+var apiKey = builder.Configuration["OpenAI:ApiKey"];
 
 
 Console.WriteLine($"AWS_ACCESS_KEY_ID: {awsAccessKeyId}");
@@ -34,15 +39,14 @@ Console.WriteLine($"AWS_SECRET_ACCESS_KEY: {awsSecretAccessKey}");
 Console.WriteLine($"AWS_BucketName: {awsBucketName}");
 Console.WriteLine($"awsRegion: {awsRegion}");
 Console.WriteLine($"JWT_KEY: {jwtKey}");
-
-
-// αγεχ ΰν ξτϊηεϊ AWS χιιξιν
+Console.WriteLine($"ApiKey: {apiKey}");
+// Χ‘Χ“Χ•Χ§ ΧΧ ΧΧ¤ΧªΧ—Χ•Χª AWS Χ§Χ™Χ™ΧΧ™Χ
 if (string.IsNullOrEmpty(awsAccessKeyId) || string.IsNullOrEmpty(awsSecretAccessKey))
 {
     throw new ArgumentNullException("AWS Credentials", "AWS Access Key and Secret Key must be provided in User Secrets");
 }
 
-// αγεχ ΰν δξτϊηεϊ χιιξιν
+// Χ‘Χ“Χ•Χ§ ΧΧ Χ”ΧΧ¤ΧªΧ—Χ•Χª Χ§Χ™Χ™ΧΧ™Χ
 if (string.IsNullOrEmpty(jwtKey))
 {
     throw new ArgumentNullException("Jwt:Key", "JWT Key must be provided in User Secrets");
@@ -58,7 +62,7 @@ builder.Services.AddCors(options =>
                         .AllowAnyHeader());
 });
 
-// αγεχ ΰν δξτϊηεϊ χιιξιν
+// Χ‘Χ“Χ•Χ§ ΧΧ Χ”ΧΧ¤ΧªΧ—Χ•Χª Χ§Χ™Χ™ΧΧ™Χ
 if (string.IsNullOrEmpty(jwtKey))
 {
     throw new ArgumentNullException("Jwt:Key", "JWT Key must be provided in .env file");
@@ -68,7 +72,7 @@ if (string.IsNullOrEmpty(jwtKey))
 
 
 
-// δερτϊ ωιψεϊιν
+// Χ”Χ•Χ΅Χ¤Χª Χ©Χ™Χ¨Χ•ΧªΧ™Χ
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
         .AddEntityFrameworkStores<DataContext>()
         .AddDefaultTokenProviders();
@@ -117,11 +121,11 @@ builder.Services.AddScoped<ISongRepository, SongRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<AuthService>();
-builder.Services.AddScoped<S3Service>(); // λΰωψ IS3Service δεΰ δξξωχ
+builder.Services.AddScoped<S3Service>(); // Χ›ΧΧ©Χ¨ IS3Service Χ”Χ•Χ Χ”ΧΧΧ©Χ§
 builder.Configuration.AddUserSecrets<Program>();
-builder.Services.AddTransient<TranscriptionService>();
+//builder.Services.AddTransient<TranscriptionService>();
 
-// ψιωεν ωιψεϊι AWS
+// Χ¨Χ™Χ©Χ•Χ Χ©Χ™Χ¨Χ•ΧªΧ™ AWS
 
 
 
@@ -134,7 +138,7 @@ builder.Services.AddSingleton<IAmazonS3>(sp =>
     var config = new AmazonS3Config
     {
         RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(awsRegion),
-        Timeout = TimeSpan.FromMinutes(10),           // Timeout λμμι (μγεβξδ 10 γχεϊ)
+        Timeout = TimeSpan.FromMinutes(10),           // Timeout Χ›ΧΧΧ™ (ΧΧ“Χ•Χ’ΧΧ” 10 Χ“Χ§Χ•Χª)
     };
 
     return new AmazonS3Client(awsAccessKeyId, awsSecretAccessKey, config);
@@ -163,6 +167,17 @@ builder.Services.AddAuthentication(options =>
         RoleClaimType = ClaimTypes.Role
     };
 });
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "MagicalMusic API", Version = "v1" });
+
+    // Χ›Χ“Χ™ ΧΧΧ¤Χ©Χ¨ Χ‘Χ—Χ™Χ¨Χª Χ§Χ‘Χ¦Χ™Χ
+    c.OperationFilter<FileUploadOperationFilter>();
+});
+
+
+
 
 builder.Services.AddAuthorization(options =>
 {
@@ -172,8 +187,9 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddHttpClient<IOpenAiWhisperService, OpenAiWhisperService>();
 
-// απιιϊ δΰτμιχφιδ
+// Χ‘Χ Χ™Χ™Χª Χ”ΧΧ¤ΧΧ™Χ§Χ¦Χ™Χ”
 var app = builder.Build();
     
 app.UseCors("AllowLocalhost4200");
@@ -202,6 +218,61 @@ app.Use(async (context, next) =>
         await context.Response.WriteAsync("{\"error\": \"You must be logged in to access this resource!\"}");
     }
 });
+
+
+
+//music chat AI 
+app.MapPost("/api/chat", async (IHttpClientFactory httpClientFactory, IConfiguration config, ChatRequest chatRequest) =>
+{
+    var apiKey = config["OpenAI:ApiKey"];
+    if (string.IsNullOrEmpty(apiKey))
+        return Results.Problem("OpenAI API key is not configured.");
+
+    if (chatRequest.Prompts == null || chatRequest.Prompts.Count == 0)
+        return Results.BadRequest("No messages provided.");
+
+    var musicKeywords = new[] {
+                    "ΧΧ•Χ–Χ™Χ§Χ”", "Χ©Χ™Χ¨", "Χ©Χ™Χ¨Χ™Χ", "ΧΧ Χ’Χ™Χ Χ”", "ΧΧ—Χ", "Χ§Χ¦Χ‘", "ΧªΧ•Χ•Χ™Χ", "ΧΧ§Χ•Χ¨Χ“", "Χ”Χ¨ΧΧ•Χ Χ™Χ”", "Χ–ΧΧ¨", "Χ–ΧΧ¨Χª",
+                    "beat", "melody", "music", "note", "song", "lyrics", "composer", "producer", "ΧΧ™Χ§Χ΅", "ΧΆΧ™Χ‘Χ•Χ“"
+                };
+
+    bool isMusicRelated = chatRequest.Prompts.Any(m =>
+        musicKeywords.Any(keyword =>
+            m.Content.Contains(keyword, StringComparison.OrdinalIgnoreCase)
+        )
+    );
+
+    if (!isMusicRelated)
+    {
+        return Results.BadRequest(new { content = "Χ”Χ¦'ΧΧ ΧΧ™Χ•ΧΆΧ“ ΧΧ©ΧΧΧ•Χª Χ”Χ§Χ©Χ•Χ¨Χ•Χª ΧΧΧ•Χ–Χ™Χ§Χ” Χ‘ΧΧ‘Χ“ πµ" });
+    }
+
+    var httpClient = httpClientFactory.CreateClient();
+    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+    var requestBody = new
+    {
+        model = "gpt-4o-mini",
+        messages = chatRequest.Prompts,
+        max_tokens = 500
+    };
+
+    var response = await httpClient.PostAsJsonAsync("https://api.openai.com/v1/chat/completions", requestBody);
+
+    if (!response.IsSuccessStatusCode)
+    {
+        var errorBody = await response.Content.ReadAsStringAsync();
+        return Results.Json(new { error = errorBody }, statusCode: (int)response.StatusCode);
+    }
+
+    var openAiResponse = await response.Content.ReadFromJsonAsync<TranscriptionResponse>();
+    var transcript = openAiResponse?.Text ?? "No transcription available";
+
+
+    return Results.Ok(new { content = transcript });
+});
+
+
 
 app.UseHsts();
 

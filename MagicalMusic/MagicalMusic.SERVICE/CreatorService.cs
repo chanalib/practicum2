@@ -23,27 +23,43 @@ namespace MagicalMusic.SERVICE
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Creator>> GetAllAsync() => await _creatorRepository.GetAllAsync();
+        public async Task<IEnumerable<CreatorDTO>> GetAllAsync()
+        {
+            var creators = await _creatorRepository.GetAllAsync();
+
+            return creators.Select(c => new CreatorDTO
+            {
+                Id = c.Id, // <<< חובה
+                Name = c.Name,
+                SongCount = c.Song?.Count ?? 0
+            });
+
+        }
         public async Task<Creator> GetByIdAsync(int id) => await _creatorRepository.GetByIdAsync(id);
-        public async Task<Creator> AddAsync(CreatorDTO creatorDTO)
+        public async Task<Creator> AddAsync(CreatorDTO creatorDto)
         {
             var creator = new Creator
             {
-                Name = creatorDTO.Name,
-
+                Name = creatorDto.Name
+                // אינך מוסיף שירים כאן – זה מתבצע במקום אחר
             };
+
             return await _creatorRepository.AddAsync(creator);
         }
-       
 
-
-       
-        public async Task<Creator> UpdateAsync(int id, CreatorDTO Creator)
+        public async Task<Creator> UpdateAsync(int id, CreatorDTO creatorDto)
         {
-            var creatorMap = _mapper.Map<Creator>(Creator);
+            var existing = await _creatorRepository.GetByIdAsync(id);
+            if (existing == null)
+                return null;
 
-            return await _creatorRepository.UpdateAsync(id, creatorMap);
+            existing.Name = creatorDto.Name;
+            // שוב, אינך משנה את השירים כאן
+
+            await _creatorRepository.UpdateAsync(id, existing);
+            return existing;
         }
+
         public async Task DeleteAsync(int id) => await _creatorRepository.DeleteAsync(id);
 
     }

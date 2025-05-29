@@ -20,9 +20,11 @@ namespace MagicalMusic.CORE.Models
         public DateTime ReleaseDate { get; set; }
 
         public string S3Url { get; set; }
-        public int creatorId { get; set; }
+        // זו השורה החסרה:
+        public int CreatorId { get; set; }
 
-        public Creator Creator { get; set; }
+        // קשר לנווטורקינג לזמר
+        public Creator? Creator { get; set; }
 
         public ICollection<User> Users { get; set; }
         public string Key { get; set; }  // שדה חדש למפתח ה-S3

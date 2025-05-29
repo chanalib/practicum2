@@ -21,7 +21,7 @@ const MusicHeader = ({ onLogout, user }: MusicHeaderProps) => {
 
   const navItems = [
     { name: "שירים", path: "/songs" },
-    { name: "זמרים", path: "/artists" },
+    { name: "זמרים", path: "/creators" },
     { name: "הקלטה", path: "/AudioRecorder" },
     { name: "קריוקי", path: "/KaraokeRecorder" },
     { name: "רינגטון", path: "/ringtone" },

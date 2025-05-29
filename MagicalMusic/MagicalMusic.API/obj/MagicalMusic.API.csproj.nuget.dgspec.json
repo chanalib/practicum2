@@ -116,7 +116,11 @@
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
-              "version": "[9.0.3, )"
+              "version": "[9.0.5, )"
+            },
+            "OpenAI": {
+              "target": "Package",
+              "version": "[2.1.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

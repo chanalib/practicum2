@@ -12,7 +12,7 @@ const TranscriptionPage: React.FC = () => {
   const [progress, setProgress] = useState<number>(0)
   const [dragActive, setDragActive] = useState<boolean>(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
- 
+
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
@@ -42,8 +42,8 @@ const TranscriptionPage: React.FC = () => {
 
   const handleFileSelection = (selectedFile: File) => {
     // בדיקת סוג הקובץ
-    const validTypes = ["audio/mpeg", "audio/wav", "audio/mp4", "audio/ogg", "audio/flac", "audio/m4a"]
-    if (!validTypes.some((type) => selectedFile.type.includes(type.split("/")[1]))) {
+    const validTypes = ["audio/mpeg", "audio/wav", "audio/mp4", "audio/ogg", "audio/flac", "audio/x-flac", "audio/m4a"]
+    if (!validTypes.includes(selectedFile.type)) {
       setError("סוג קובץ לא נתמך. אנא העלה קובץ מסוג MP3, WAV, M4A, OGG או FLAC.")
       return
     }
@@ -72,7 +72,8 @@ const TranscriptionPage: React.FC = () => {
 
     try {
       const formData = new FormData()
-      formData.append("file", file)
+      formData.append("audioFile", file) // שים לב לשם הפרמטר - חייב להתאים לשם בפרמטר של ה-API: audioFile
+      formData.append("language", "he") // שולח את השפה "he" לשרת
 
       // סימולציה של התקדמות
       const progressInterval = setInterval(() => {
@@ -85,19 +86,17 @@ const TranscriptionPage: React.FC = () => {
         })
       }, 500)
 
-      const response = await fetch("https://singlezone-net.onrender.com/api/transcription/transcribe-full", {
-        method: "POST",
-        body: formData,
-      })
+      const response = await fetch("https://localhost:7157/api/ai/upload", { method: "POST", body: formData })
 
       clearInterval(progressInterval)
 
       if (!response.ok) {
-        throw new Error(`שגיאה בתמלול: ${response.statusText}`)
+        const errText = await response.text()
+        throw new Error(`שגיאה בתמלול: ${response.statusText} - ${errText}`)
       }
 
       const result = await response.json()
-      setTranscription(result.text)
+      setTranscription(result.text || result.Text || "")
       setProgress(100)
     } catch (error: any) {
       console.error("שגיאה בתמלול:", error)
@@ -135,30 +134,20 @@ const TranscriptionPage: React.FC = () => {
     const i = Math.floor(Math.log(bytes) / Math.log(k))
     return Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
   }
-
   return (
     <div className="transcription-container">
-      {/* Header */}
-      <div className="transcription-header">
-        <div className="header-content">
-          <h1 className="transcription-title">
-            <span className="gradient-text">🎤 תמלול שירים חכם</span>
-          </h1>
-          <p className="transcription-subtitle">טכנולוגיית בינה מלאכותית מתקדמת לתמלול מדויק של מילות השיר</p>
-        </div>
-        <div className="floating-elements">
-          <div className="floating-note note-1">🎵</div>
-          <div className="floating-note note-2">🎶</div>
-          <div className="floating-note note-3">🎼</div>
-        </div>
-      </div>
+      <div className="transcription-glass-effect"></div>
 
-      {/* Main Content */}
       <div className="transcription-content">
-        {/* Upload Section */}
-        <div className="upload-section">
+        <div className="transcription-header">
+          <h1 className="transcription-title">תמלול שירים</h1>
+          <div className="title-underline"></div>
+          <p className="transcription-subtitle">תמלול מדויק באמצעות בינה מלאכותית</p>
+        </div>
+
+        <div className="transcription-card">
           <div
-            className={`upload-zone ${dragActive ? "drag-active" : ""} ${file ? "has-file" : ""}`}
+            className={`upload-area ${dragActive ? "drag-active" : ""} ${file ? "has-file" : ""}`}
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
@@ -176,32 +165,77 @@ const TranscriptionPage: React.FC = () => {
             {!file ? (
               <div className="upload-placeholder">
                 <div className="upload-icon">
-                  <div className="icon-circle">
-                    <span>🎧</span>
-                  </div>
-                  <div className="upload-waves">
-                    <div className="wave wave-1"></div>
-                    <div className="wave wave-2"></div>
-                    <div className="wave wave-3"></div>
-                  </div>
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M8 12L12 16L16 12"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M12 8V16"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-                <h3>גרור קובץ שמע לכאן או לחץ לבחירה</h3>
-                <p>תומך בפורמטים: MP3, WAV, M4A, OGG, FLAC</p>
-                <p>גודל מקסימלי: 25MB</p>
+                <p className="upload-text">גרור קובץ שמע לכאן או לחץ לבחירה</p>
+                <p className="upload-formats">MP3, WAV, M4A, OGG, FLAC | עד 25MB</p>
                 <label htmlFor="audio-file-input" className="upload-button">
-                  📁 בחר קובץ
+                  בחר קובץ
                 </label>
               </div>
             ) : (
               <div className="file-info">
-                <div className="file-icon">🎵</div>
-                <div className="file-details">
-                  <h3 className="file-name">{file.name}</h3>
-                  <p className="file-size">{formatFileSize(file.size)}</p>
-                  <div className="file-type">{file.type}</div>
+                <div className="file-preview">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M9 18V6L21 12L9 18Z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M6 3V21"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-                <button className="remove-file" onClick={handleClear}>
-                  ❌
+                <div className="file-details">
+                  <p className="file-name">{file.name}</p>
+                  <p className="file-meta">{formatFileSize(file.size)}</p>
+                </div>
+                <button className="file-remove" onClick={handleClear} aria-label="הסר קובץ">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M18 6L6 18"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M6 6L18 18"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </button>
               </div>
             )}
@@ -209,87 +243,134 @@ const TranscriptionPage: React.FC = () => {
 
           {error && (
             <div className="error-message">
-              <span className="error-icon">⚠️</span>
-              {error}
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M12 8V12"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M12 16H12.01"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span>{error}</span>
             </div>
           )}
-        </div>
 
-        {/* Controls */}
-        <div className="controls-section">
-          <button
-            className={`transcribe-button ${isTranscribing ? "loading" : ""}`}
-            onClick={handleTranscribe}
-            disabled={!file || isTranscribing}
-          >
-            {isTranscribing ? (
-              <>
-                <div className="loading-spinner"></div>
-                <span>מתמלל...</span>
-              </>
-            ) : (
-              <>
-                <span className="button-icon">🚀</span>
-                <span>התחל תמלול</span>
-              </>
-            )}
-          </button>
-
-          {file && !isTranscribing && (
-            <button className="clear-button" onClick={handleClear}>
-              <span className="button-icon">🗑️</span>
-              <span>נקה הכל</span>
+          <div className="action-buttons">
+            <button
+              className={`primary-button ${isTranscribing ? "loading" : ""}`}
+              onClick={handleTranscribe}
+              disabled={!file || isTranscribing}
+            >
+              {isTranscribing ? (
+                <>
+                  <span className="spinner"></span>
+                  <span>מתמלל...</span>
+                </>
+              ) : (
+                <>
+                  <span>התחל תמלול</span>
+                </>
+              )}
             </button>
+
+            {file && !isTranscribing && (
+              <button className="secondary-button" onClick={handleClear}>
+                נקה
+              </button>
+            )}
+          </div>
+
+          {isTranscribing && (
+            <div className="progress-container">
+              <div className="progress-label">
+                <span>מעבד את הקובץ</span>
+                <span className="progress-percentage">{Math.round(progress)}%</span>
+              </div>
+              <div className="progress-track">
+                <div className="progress-bar" style={{ width: `${progress}%` }}></div>
+              </div>
+            </div>
           )}
         </div>
 
-        {/* Progress */}
-        {isTranscribing && (
-          <div className="progress-section">
-            <div className="progress-info">
-              <span>מתמלל את הקובץ...</span>
-              <span>{Math.round(progress)}%</span>
-            </div>
-            <div className="progress-bar">
-              <div className="progress-fill" style={{ width: `${progress}%` }}></div>
-            </div>
-          </div>
-        )}
-
-        {/* Results */}
         {transcription && (
-          <div className="results-section">
-            <div className="results-header">
-              <h3>
-                <span className="results-icon">📝</span>
-                תוצאות התמלול
-              </h3>
-              <div className="results-actions">
-                <button className={`copy-button ${copied ? "copied" : ""}`} onClick={handleCopyToClipboard}>
-                  {copied ? (
-                    <>
-                      <span>✅</span>
-                      <span>הועתק!</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>📋</span>
-                      <span>העתק</span>
-                    </>
-                  )}
-                </button>
-              </div>
+          <div className="result-card">
+            <div className="result-header">
+              <h2>תוצאות התמלול</h2>
+              <button
+                className={`copy-button ${copied ? "copied" : ""}`}
+                onClick={handleCopyToClipboard}
+                aria-label="העתק לזיכרון"
+              >
+                {copied ? (
+                  <>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M20 6L9 17L4 12"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span>הועתק</span>
+                  </>
+                ) : (
+                  <>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M8 16H6C4.89543 16 4 15.1046 4 14V6C4 4.89543 4.89543 4 6 4H14C15.1046 4 16 4.89543 16 6V8"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M10 14V14C10 12.8954 10.8954 12 12 12H18C19.1046 12 20 12.8954 20 14V18C20 19.1046 19.1046 20 18 20H12C10.8954 20 10 19.1046 10 18V18"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span>העתק</span>
+                  </>
+                )}
+              </button>
             </div>
 
-            <div className="transcription-output">
-              <div className="output-content">{transcription}</div>
+            <div className="result-content">
+              <div className="lyrics-container">{transcription}</div>
             </div>
 
-            <div className="results-footer">
-              <div className="word-count">
-                מילים: {transcription.split(/\s+/).filter((word) => word.length > 0).length}
+            <div className="result-footer">
+              <div className="stats">
+                <div className="stat-item">
+                  <span className="stat-label">מילים</span>
+                  <span className="stat-value">
+                    {transcription.split(/\s+/).filter((word) => word.length > 0).length}
+                  </span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-label">תווים</span>
+                  <span className="stat-value">{transcription.length}</span>
+                </div>
               </div>
-              <div className="char-count">תווים: {transcription.length}</div>
             </div>
           </div>
         )}
