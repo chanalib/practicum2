@@ -1,5 +1,5 @@
 "use client"
-import "./transcription.css"
+import "./Styles/transcription.css"
 import type React from "react"
 import { useState, useRef, useCallback } from "react"
 

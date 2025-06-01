@@ -5,7 +5,7 @@
 namespace MagicalMusic.DATA.Migrations
 {
     /// <inheritdoc />
-    public partial class addCountSongsCreator3 : Migration
+    public partial class clever9 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

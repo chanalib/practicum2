@@ -6,7 +6,7 @@ import { Message } from "../../models/message.model";
 @Component({
   selector: 'app-admin-messages',
   standalone: true,
-  imports: [CommonModule], // <-- זה מה שחסר לך
+  imports: [CommonModule], 
   templateUrl: './admin-messages.component.html',
   styleUrls: ['./admin-messages.component.css']
 

@@ -2,7 +2,7 @@
 
 import  React from "react"
 import { useRef, useState, useEffect } from "react"
-import "./audio-recorder.css"
+import "./Styles/audio-recorder.css"
 const AudioRecorder: React.FC = () => {
   const canvas = useRef<HTMLCanvasElement | null>(null)
   const audioContext = useRef<AudioContext | null>(null)

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import "./Home.css"
+import "./Styles/Home.css"
 import { Link } from "react-router-dom"
 import Footer from "./footer"
 const Home = () => {

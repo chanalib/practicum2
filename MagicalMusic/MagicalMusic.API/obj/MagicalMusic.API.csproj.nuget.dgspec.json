@@ -367,6 +367,9 @@
             "projectReferences": {
               "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj": {
                 "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.CORE\\MagicalMusic.CORE.csproj"
+              },
+              "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj": {
+                "projectPath": "C:\\Users\\user1\\Documents\\שיעורי בית בתכנות\\תשפה\\פרקטיקום 2\\MagicalMusic\\MagicalMusic.DATA\\MagicalMusic.DATA.csproj"
               }
             }
           }

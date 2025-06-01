@@ -13,6 +13,8 @@ import { useContext } from 'react';
 import TranscriptionPage from './components/TranscriptionPage';
 import ContactForm from './components/Messages';
 import CreatorSongs from './components/CreatorSongs';
+import PersonalPlaylist from './components/PersonalPlaylist';
+// import UserProfile from './components/UserProfile';
 const AppContent = () => {
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
@@ -45,6 +47,8 @@ const AppContent = () => {
           <Route path="/Transcription" element={isLogin ? <TranscriptionPage /> : <Navigate to="/login" replace />} />
           <Route path="/KaraokeRecorder" element={isLogin ? <KaraokeRecorder /> : <Navigate to="/login" replace />} />
           <Route path="/request" element={isLogin ? <ContactForm /> : <Navigate to="/login" replace />} />
+          <Route path="/favorites" element={<PersonalPlaylist />} />
+          {/* <Route path="/userprofile" element={<UserProfile />} /> */}
 
         </Routes>
       </main>

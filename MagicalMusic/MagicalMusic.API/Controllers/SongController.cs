@@ -50,5 +50,42 @@ namespace MagicalMusic.API.Controllers
             var created = await _songService.AddAsync(songDto);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
+
+        // עדכון שיר קיים
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] SongDTO songDto)
+        {
+            if (id != songDto.Id)
+                return BadRequest("ID mismatch.");
+
+            var updated = await _songService.UpdateAsync(songDto);
+            if (updated == null)
+                return NotFound();
+
+            return Ok(updated);
+        }
+
+        // מחיקת שיר
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleted = await _songService.DeleteAsync(id);
+            if (!deleted)
+                return NotFound();
+
+            return NoContent();
+        }
+
+        [HttpGet("playlist")]
+        public async Task<IActionResult> GetSongsByIds([FromQuery] List<int> ids)
+        {
+            if (ids == null || !ids.Any())
+                return BadRequest("Missing song IDs.");
+
+            var songs = await _songService.GetSongsByIdsAsync(ids);
+            return Ok(songs);
+        }
+
+
     }
 }

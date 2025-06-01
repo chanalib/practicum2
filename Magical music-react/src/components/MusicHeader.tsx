@@ -1,5 +1,5 @@
 "use client"
-import "./MusicHeader.css"
+import "./Styles//MusicHeader.css"
 import { useState, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -24,7 +24,6 @@ const MusicHeader = ({ onLogout, user }: MusicHeaderProps) => {
     { name: "זמרים", path: "/creators" },
     { name: "הקלטה", path: "/AudioRecorder" },
     { name: "קריוקי", path: "/KaraokeRecorder" },
-    { name: "רינגטון", path: "/ringtone" },
     { name: "בקשת שיר", path: "/request" },
     { name: "תמלול", path: "/transcription" },
   ]
@@ -107,7 +106,12 @@ const MusicHeader = ({ onLogout, user }: MusicHeaderProps) => {
                   <div className="menu-divider"></div>
 
                   <div className="menu-items">
-                    <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>
+                    <a href="#" className="menu-item" 
+                      onClick={() => {
+                        setMenuOpen(false)
+                        navigate("/userprofile")
+                      }}
+                    >
                       <span className="menu-icon">👤</span>
                       <span>פרופיל אישי</span>
                     </a>
@@ -115,14 +119,20 @@ const MusicHeader = ({ onLogout, user }: MusicHeaderProps) => {
                       <span className="menu-icon">⚙️</span>
                       <span>הגדרות</span>
                     </a>
-                    <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>
-                      <span className="menu-icon">🎵</span>
-                      <span>השירים שלי</span>
-                    </a>
-                    <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>
+                  
+                    <a
+                      href="#"
+                      className="menu-item"
+                      onClick={() => {
+                        setMenuOpen(false)
+                        navigate("/favorites")
+                      }}
+                    >
                       <span className="menu-icon">❤️</span>
-                      <span>מועדפים</span>
+                      <span>השירים המועדפים עלי</span>
                     </a>
+
+
                   </div>
 
                   <div className="menu-divider"></div>

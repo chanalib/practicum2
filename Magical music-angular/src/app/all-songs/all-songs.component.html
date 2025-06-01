@@ -1,0 +1,13 @@
+<div class="song-list">
+    <h2>רשימת שירים</h2>
+    <div *ngFor="let song of songs" class="song-item">
+      <p><strong>{{ song.name }}</strong></p>
+      <p>סגנון: {{ song.musicStyle }}</p>
+      <p>אורך: {{ song.songLength }} שניות</p>
+      <p>תאריך יציאה: {{ song.releaseDate | date }}</p>
+      <button (click)="deleteSong(song.id)">🗑️ מחק שיר</button>
+      <button (click)="editSong(song.id)"> 🖊️ ערוך</button>
+
+    </div>
+  </div>
+  

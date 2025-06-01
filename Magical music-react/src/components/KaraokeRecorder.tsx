@@ -2,7 +2,7 @@
 
 import React from "react"
 import { useRef, useState } from "react"
-import "./karaoke.css"
+import "./Styles/karaoke.css"
 const KaraokeRecorder: React.FC = () => {
   const audioContext = useRef<AudioContext | null>(null)
   const sourceMic = useRef<MediaStreamAudioSourceNode | null>(null)

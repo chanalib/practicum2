@@ -42,5 +42,27 @@ namespace MagicalMusic.DATA.Repositories
                 .ToListAsync();
         }
 
+        public async Task<Song> UpdateAsync(Song song)
+        {
+            _context.Songs.Update(song);
+            await _context.SaveChangesAsync();
+            return song;
+        }
+
+        public async Task DeleteAsync(Song song)
+        {
+            _context.Songs.Remove(song);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Song>> GetSongsByIdsAsync(List<int> ids)
+        {
+            return await _context.Songs
+                .Where(song => ids.Contains(song.Id))
+                .ToListAsync();
+        }
+
+
+
     }
 }

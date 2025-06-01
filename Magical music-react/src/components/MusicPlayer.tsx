@@ -1,5 +1,7 @@
-import React, { useEffect, useRef, useState } from "react"
-import "./Music-player.css"
+"use client"
+
+import type React from "react"
+
 interface Song {
   id: number
   name: string
@@ -13,244 +15,200 @@ interface Song {
 }
 
 interface MusicPlayerProps {
-  song: Song
+  currentSong: Song
+  isPlaying: boolean
+  currentTime: number
+  duration: number
   playbackRate: number
   volume: number
-  onPlaybackRateChange: (rate: number) => void
-  onVolumeChange: (vol: number) => void
-  onNext: () => void
-  onPrevious: () => void
+  isLoading: boolean
+  songError: string | null
+  isMinimized: boolean
+  onTogglePlayPause: () => void
+  onPlayNext: () => void
+  onPlayPrevious: () => void
+  onSeek: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onVolumeChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onRateChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  onDownload: (song: Song) => void
+  onMinimize: () => void
+  onClose: () => void
+  formatTime: (seconds: number) => string
 }
 
 const MusicPlayer: React.FC<MusicPlayerProps> = ({
-  song,
+  currentSong,
+  isPlaying,
+  currentTime,
+  duration,
   playbackRate,
   volume,
-  onPlaybackRateChange,
+  isLoading,
+  songError,
+  isMinimized,
+  onTogglePlayPause,
+  onPlayNext,
+  onPlayPrevious,
+  onSeek,
   onVolumeChange,
-  onNext,
-  onPrevious,
+  onRateChange,
+  onDownload,
+  onMinimize,
+  onClose,
+  formatTime,
 }) => {
-  const audioRef = useRef<HTMLAudioElement | null>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [currentTime, setCurrentTime] = useState(0)
-  const [duration, setDuration] = useState(0)
-  const [isLoading, setIsLoading] = useState(false)
-  const [songError, setSongError] = useState<string | null>(null)
-  const [isMinimized, setIsMinimized] = useState(false)
-  const [isClosed, setIsClosed] = useState(false)
+  // הסר את ה-state הפנימי
+  // const [isMinimized, setIsMinimized] = useState(false)
+  // const [isClosed, setIsClosed] = useState(false)
 
-  useEffect(() => {
-    if (isClosed) return
-
-    const loadAndPlaySong = async () => {
-      setIsLoading(true)
-      setSongError(null)
-
-      try {
-        const response = await fetch(`https://localhost:7157/api/s3/presigned-url?key=${encodeURIComponent(song.key)}`)
-
-        if (!response.ok) {
-          throw new Error(`שגיאה בקבלת קישור לשיר: ${response.status} ${response.statusText}`)
-        }
-
-        const url = await response.text()
-
-        if (!url || url.trim() === "") {
-          throw new Error("לא התקבל קישור תקין לשיר")
-        }
-
-        if (audioRef.current) {
-          audioRef.current.pause()
-          audioRef.current.src = ""
-        }
-
-        const audio = new Audio(url)
-        audio.playbackRate = playbackRate
-        audio.volume = volume
-        audio.preload = "auto"
-
-        audio.ontimeupdate = () => setCurrentTime(audio.currentTime)
-        audio.onloadedmetadata = () => {
-          setDuration(audio.duration)
-          setIsLoading(false)
-          audio
-            .play()
-            .then(() => setIsPlaying(true))
-            .catch((error) => {
-              setSongError("שגיאה בהפעלת השיר")
-              console.error("Auto-play error:", error)
-            })
-        }
-        audio.oncanplaythrough = () => setIsLoading(false)
-        audio.onended = () => {
-          setIsPlaying(false)
-          onNext()
-        }
-        audio.onerror = (e) => {
-          setIsLoading(false)
-          setSongError("שגיאה בניגון השיר. ייתכן שהקובץ לא קיים או פגום.")
-          setIsPlaying(false)
-          console.error("Audio playback error:", e)
-        }
-
-        audioRef.current = audio
-      } catch (error: any) {
-        setIsLoading(false)
-        setSongError(error.message || "שגיאה לא צפויה בטעינת השיר")
-        setIsPlaying(false)
-        console.error("Song loading error:", error)
-      }
-    }
-
-    loadAndPlaySong()
-
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause()
-        audioRef.current = null
-      }
-    }
-  }, [song, playbackRate, volume, onNext, isClosed])
-
-  const togglePlayPause = () => {
-    if (!audioRef.current) return
-    if (isPlaying) {
-      audioRef.current.pause()
-      setIsPlaying(false)
-    } else {
-      audioRef.current
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch((error) => {
-          setSongError("שגיאה בהפעלת השיר")
-          console.error("Play error:", error)
-        })
-    }
-  }
-
-  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const time = Number.parseFloat(e.target.value)
-    if (audioRef.current && !isNaN(time)) {
-      audioRef.current.currentTime = time
-      setCurrentTime(time)
-    }
-  }
-
-  const formatTime = (seconds: number) => {
-    if (isNaN(seconds) || !isFinite(seconds)) return "0:00"
-    const mins = Math.floor(seconds / 60)
-    const secs = Math.floor(seconds % 60)
-    return `${mins}:${secs.toString().padStart(2, "0")}`
-  }
-
-  const toggleMinimize = () => setIsMinimized(!isMinimized)
-  const closePlayer = () => {
-    if (audioRef.current) {
-      audioRef.current.pause()
-      audioRef.current = null
-    }
-    setIsPlaying(false)
-    setIsClosed(true)
-  }
-
-  if (isClosed) return null
+  // if (isClosed) return null
 
   return (
     <div className={`music-player ${isMinimized ? "minimized" : ""}`}>
-      <div className="player-actions-top">
-        <button className="minimize-btn" onClick={toggleMinimize} title="מזער">
-          {isMinimized ? "🔼" : "🔽"}
-        </button>
-        <button className="close-btn" onClick={closePlayer} title="סגור">
-          ❌
-        </button>
-      </div>
-
       <div className="player-container">
-        <div className="player-song-info">
-          <div className="player-artwork">
-            <div className="artwork-placeholder">
-              <span className="music-note">🎵</span>
-            </div>
-            {isPlaying && (
-              <div className="playing-overlay">
-                <div className="equalizer">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="song-details">
-            <h4 className="player-song-title">{song.name}</h4>
-            <p className="player-artist">{song.artistName}</p>
-            <p className="player-style">{song.musicStyle}</p>
-          </div>
-        </div>
-
-        <div className="player-controls">
-          <div className="main-controls">
-            <button className="control-btn prev" onClick={onPrevious} title="הקודם">⏮️</button>
-            <button className={`control-btn play-pause ${isLoading ? "loading" : ""}`} onClick={togglePlayPause} disabled={isLoading}>
-              {isLoading ? "⏳" : isPlaying ? "⏸️" : "▶️"}
+        {/* Player Controls */}
+        <div className="player-header">
+          <div className="player-actions">
+            <button className="minimize-btn" onClick={onMinimize} title={isMinimized ? "הרחב" : "מזער"}>
+              {isMinimized ? "⬆️" : "⬇️"}
             </button>
-            <button className="control-btn next" onClick={onNext} title="הבא">⏭️</button>
+            <button className="close-btn" onClick={onClose} title="סגור נגן">
+              ✕
+            </button>
           </div>
+        </div>
 
-          <div className="progress-section">
-            <span className="time-display current">{formatTime(currentTime)}</span>
-            <div className="progress-container">
-              <input
-                type="range"
-                min="0"
-                max={duration || 0}
-                value={currentTime}
-                onChange={handleSeek}
-                className="progress-bar"
-                disabled={!duration}
-              />
-              <div className="progress-fill" style={{ width: duration ? `${(currentTime / duration) * 100}%` : "0%" }}></div>
+        {!isMinimized && (
+          <>
+            {/* Song Info Section */}
+            <div className="player-song-info">
+              <div className="player-artwork">
+                <div className="artwork-placeholder">
+                </div>
+                {isPlaying && (
+                  <div className="playing-overlay">
+                    <div className="equalizer">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="song-details">
+                <h4 className="player-song-title">{currentSong.name}</h4>
+                <p className="player-artist">{currentSong.artistName}</p>
+                <p className="player-style">{currentSong.musicStyle}</p>
+              </div>
             </div>
-            <span className="time-display duration">{formatTime(duration)}</span>
-          </div>
-        </div>
 
-        <div className="player-extras">
-          <div className="volume-control">
-            <span className="volume-icon">🔊</span>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.1"
-              value={volume}
-              onChange={(e) => onVolumeChange(Number(e.target.value))}
-              className="volume-slider"
-            />
-          </div>
+            {/* Controls Section */}
+            <div className="player-controls">
+              <div className="main-controls">
+                <button className="control-btn prev" onClick={onPlayPrevious} title="הקודם">
+                  ⏮️
+                </button>
+                <button
+                  className={`control-btn play-pause ${isLoading ? "loading" : ""}`}
+                  onClick={onTogglePlayPause}
+                  disabled={isLoading}
+                  title={isPlaying ? "השהה" : "נגן"}
+                >
+                  {isLoading ? "⏳" : isPlaying ? "⏸️" : "▶️"}
+                </button>
+                <button className="control-btn next" onClick={onPlayNext} title="הבא">
+                  ⏭️
+                </button>
+              </div>
 
-          <div className="speed-control">
-            <label htmlFor="playbackRate">מהירות:</label>
-            <select
-              id="playbackRate"
-              value={playbackRate}
-              onChange={(e) => onPlaybackRateChange(Number(e.target.value))}
-              className="speed-select"
-            >
-              <option value="0.5">0.5x</option>
-              <option value="0.75">0.75x</option>
-              <option value="1">1x</option>
-              <option value="1.25">1.25x</option>
-              <option value="1.5">1.5x</option>
-              <option value="2">2x</option>
-            </select>
-          </div>
-        </div>
+              {/* Progress Bar */}
+              <div className="progress-section">
+                <span className="time-display current">{formatTime(currentTime)}</span>
+                <div className="progress-container">
+                  <input
+                    type="range"
+                    min="0"
+                    max={duration || 0}
+                    value={currentTime}
+                    onChange={onSeek}
+                    className="progress-bar"
+                    disabled={!duration}
+                  />
+                  <div
+                    className="progress-fill"
+                    style={{ width: duration ? `${(currentTime / duration) * 100}%` : "0%" }}
+                  ></div>
+                </div>
+                <span className="time-display duration">{formatTime(duration)}</span>
+              </div>
+            </div>
 
+            {/* Additional Controls */}
+            <div className="player-extras">
+              <div className="volume-control">
+                <span className="volume-icon">🔊</span>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value={volume}
+                  onChange={onVolumeChange}
+                  className="volume-slider"
+                />
+              </div>
+
+              <div className="speed-control">
+                <label htmlFor="playbackRate">מהירות:</label>
+                <select id="playbackRate" value={playbackRate} onChange={onRateChange} className="speed-select">
+                  <option value="0.5">0.5x</option>
+                  <option value="0.75">0.75x</option>
+                  <option value="1">1x</option>
+                  <option value="1.25">1.25x</option>
+                  <option value="1.5">1.5x</option>
+                  <option value="2">2x</option>
+                </select>
+              </div>
+
+              <div className="extra-actions">
+                <button className="action-btn" onClick={() => onDownload(currentSong)} title="הורד">
+                  📥
+                </button>
+                <button className="action-btn" title="שתף">
+                  📤
+                </button>
+                <button className="action-btn" title="הוסף לפלייליסט">
+                  ➕
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Minimized View */}
+        {isMinimized && (
+          <div className="minimized-player">
+            <div className="mini-song-info">
+              <span className="mini-title">{currentSong.name}</span>
+              <span className="mini-artist">{currentSong.artistName}</span>
+            </div>
+            <div className="mini-controls">
+              <button className="mini-btn" onClick={onPlayPrevious}>
+                ⏮️
+              </button>
+              <button className="mini-btn play-pause" onClick={onTogglePlayPause}>
+                {isLoading ? "⏳" : isPlaying ? "⏸️" : "▶️"}
+              </button>
+              <button className="mini-btn" onClick={onPlayNext}>
+                ⏭️
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Song Error Display */}
         {songError && <div className="song-error">{songError}</div>}
       </div>
     </div>

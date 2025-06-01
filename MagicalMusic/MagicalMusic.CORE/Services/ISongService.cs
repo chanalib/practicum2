@@ -12,5 +12,10 @@ namespace MagicalMusic.CORE.Services
 
         // הוסף כאן:
         Task<IEnumerable<SongDTO>> GetByCreatorIdAsync(int creatorId);
+        Task<SongDTO?> UpdateAsync(SongDTO dto);
+        Task<bool> DeleteAsync(int id);
+        Task<IEnumerable<SongDTO>> GetSongsByIdsAsync(List<int> ids);
+
+
     }
 }

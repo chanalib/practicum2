@@ -122,6 +122,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<S3Service>(); // כאשר IS3Service הוא הממשק
+builder.Services.AddScoped<UserProfileRepository>();
+builder.Services.AddScoped<UserProfileService>();
+
 builder.Configuration.AddUserSecrets<Program>();
 //builder.Services.AddTransient<TranscriptionService>();
 
@@ -192,7 +195,6 @@ builder.Services.AddHttpClient<IOpenAiWhisperService, OpenAiWhisperService>();
 // בניית האפליקציה
 var app = builder.Build();
     
-app.UseCors("AllowLocalhost4200");
 
 if (app.Environment.IsDevelopment())
 {

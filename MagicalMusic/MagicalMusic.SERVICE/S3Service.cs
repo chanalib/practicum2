@@ -78,6 +78,25 @@ namespace MagicalMusic.SERVICE
 
             return _s3Client.GetPreSignedURL(request);
         }
+        public async Task DeleteFileAsync(string key)
+        {
+            try
+            {
+                var deleteRequest = new DeleteObjectRequest
+                {
+                    BucketName = _bucketName,
+                    Key = key
+                };
+
+                await _s3Client.DeleteObjectAsync(deleteRequest);
+            }
+            catch (AmazonS3Exception ex)
+            {
+                // אפשר להוסיף לוג או טיפול בחריגה לפי הצורך
+                throw new Exception("Failed to delete file from S3.", ex);
+            }
+        }
+
 
 
 

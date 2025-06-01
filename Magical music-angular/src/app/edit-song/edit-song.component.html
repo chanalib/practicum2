@@ -1,0 +1,16 @@
+<h2>עריכת שיר</h2>
+<form [formGroup]="songForm" (ngSubmit)="onSubmit()">
+  <label>שם השיר:
+    <input formControlName="name" />
+  </label><br />
+
+  <label>סגנון מוזיקלי:
+    <input formControlName="musicStyle" />
+  </label><br />
+
+  <label>אורך (בשניות):
+    <input type="number" formControlName="songLength" />
+  </label><br />
+
+  <button type="submit" [disabled]="songForm.invalid">שמור</button>
+</form>

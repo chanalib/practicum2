@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MagicalMusic.CORE\MagicalMusic.CORE.csproj" />
+    <ProjectReference Include="..\MagicalMusic.DATA\MagicalMusic.DATA.csproj" />
   </ItemGroup>
 
 </Project>

@@ -16,5 +16,6 @@ namespace MagicalMusic.CORE.Services
         public Task<User> UpdateAsync(int id, UserDTO user);
         public Task DeleteAsync(int id);
         public User Authenticate(string userName, string userPassword);
+
     }
 }
