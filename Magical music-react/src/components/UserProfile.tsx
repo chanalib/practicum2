@@ -32,7 +32,7 @@ const UserProfile: React.FC = () => {
       setError(null)
       try {
         // Try to fetch real user data
-        const res = await fetch("https://localhost:7157/api/UserProfil")
+        const res = await fetch("https://magical-music-server.onrender.com/api/UserProfil")
         if (res.ok) {
           const data = await res.json()
           setUser({
@@ -100,7 +100,7 @@ const UserProfile: React.FC = () => {
   const handleSaveProfile = async () => {
     if (!user) return
     try {
-      const res = await fetch(`https://localhost:7157/api/UserProfil`, {
+      const res = await fetch(`https://magical-music-server.onrender.com/api/UserProfil`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

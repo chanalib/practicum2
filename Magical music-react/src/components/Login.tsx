@@ -24,7 +24,7 @@ const Login = () => {
         setError('');
         setIsSuccess(false);
         try {
-            const response = await axios.post('https://localhost:7157/api/auth/login', { email, password });
+            const response = await axios.post('https://magical-music-server.onrender.com/api/auth/login', { email, password });
 
             if (response.data.token) {
                 const user = { email, token: response.data.token };

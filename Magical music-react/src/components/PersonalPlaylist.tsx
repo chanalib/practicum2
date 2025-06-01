@@ -28,7 +28,7 @@ const PersonalPlaylistPage = () => {
       // Create endpoint for personal playlist
       if (likedIds.length > 0) {
         const idsParam = likedIds.join(",")
-        setPersonalPlaylistEndpoint(`https://localhost:7157/api/song/playlist?ids=${idsParam}`)
+        setPersonalPlaylistEndpoint(`https://magical-music-server.onrender.com/api/song/playlist?ids=${idsParam}`)
       }
     }
   }, [])
@@ -43,7 +43,7 @@ const PersonalPlaylistPage = () => {
 
     if (newLikes.length > 0) {
       const idsParam = newLikes.join(",")
-      setPersonalPlaylistEndpoint(`https://localhost:7157/api/song/playlist?ids=${idsParam}`)
+      setPersonalPlaylistEndpoint(`https://magical-music-server.onrender.com/api/song/playlist?ids=${idsParam}`)
     } else {
       setPersonalPlaylistEndpoint("")
     }

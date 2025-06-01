@@ -183,7 +183,7 @@ const SongsDisplay: React.FC<SongsDisplayProps> = ({
       setSongError(null)
 
       try {
-        const response = await fetch(`https://localhost:7157/api/s3/presigned-url?key=${encodeURIComponent(song.key)}`)
+        const response = await fetch(`https://magical-music-server.onrender.com/api/s3/presigned-url?key=${encodeURIComponent(song.key)}`)
 
         if (!response.ok) {
           throw new Error(`שגיאה בקבלת קישור לשיר: ${response.status} ${response.statusText}`)
@@ -356,7 +356,7 @@ const SongsDisplay: React.FC<SongsDisplayProps> = ({
   const downloadSong = async (song: Song) => {
     try {
       const urlResponse = await fetch(
-        `https://localhost:7157/api/s3/presigned-url?key=${encodeURIComponent(song.key)}&download=true`,
+        `https://magical-music-server.onrender.com/api/s3/presigned-url?key=${encodeURIComponent(song.key)}&download=true`,
       )
 
       if (!urlResponse.ok) {

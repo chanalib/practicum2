@@ -86,7 +86,7 @@ const TranscriptionPage: React.FC = () => {
         })
       }, 500)
 
-      const response = await fetch("https://localhost:7157/api/ai/upload", { method: "POST", body: formData })
+      const response = await fetch("https://magical-music-server.onrender.com/ai/upload", { method: "POST", body: formData })
 
       clearInterval(progressInterval)
 
