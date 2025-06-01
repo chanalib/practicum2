@@ -5,9 +5,8 @@ import { useEffect, useState, useRef, useMemo } from "react"
 import SongCard from "./SongCard"
 import MusicPlayer from "./MusicPlayer"
 import SearchAndSort from "./SearchAndSort"
-
-import "./styles/search-sort.css"
-import "./styles/AllSongs.css"
+import "./Styles/search-sort.css"
+import "./Styles/AllSongs.css"
 
 interface Song {
   id: number
@@ -26,12 +25,21 @@ interface Song {
 interface SongsDisplayProps {
   title: string
   subtitle: string
-  apiEndpoint: string
+  apiEndpoint?: string
+  songs?: Song[]
   showLikes?: boolean
+  onLike?: (song: Song) => void
 }
 
-const SongsDisplay: React.FC<SongsDisplayProps> = ({ title, subtitle, apiEndpoint, showLikes = true }) => {
-  const [songs, setSongs] = useState<Song[]>([])
+const SongsDisplay: React.FC<SongsDisplayProps> = ({
+  title,
+  subtitle,
+  apiEndpoint,
+  songs: initialSongs,
+  showLikes = true,
+  onLike,
+}) => {
+  const [songs, setSongs] = useState<Song[]>(initialSongs || [])
   const [filteredSongs, setFilteredSongs] = useState<Song[]>([])
   const [currentSongIndex, setCurrentSongIndex] = useState<number | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -126,8 +134,11 @@ const SongsDisplay: React.FC<SongsDisplayProps> = ({ title, subtitle, apiEndpoin
         setLoadingSongs(true)
         setErrorMessage(null)
 
+        if (!apiEndpoint) {
+          throw new Error("אין כתובת API זמינה")
+        }
         const response = await fetch(apiEndpoint)
-        if (!response.ok) {
+                if (!response.ok) {
           throw new Error(`שגיאה בטעינת השירים: ${response.status} ${response.statusText}`)
         }
 
@@ -151,7 +162,9 @@ const SongsDisplay: React.FC<SongsDisplayProps> = ({ title, subtitle, apiEndpoin
       }
     }
 
-    fetchSongs()
+    if (apiEndpoint) {
+      fetchSongs()
+    }
 
     return () => {
       if (audioRef.current) {
@@ -249,26 +262,30 @@ const SongsDisplay: React.FC<SongsDisplayProps> = ({ title, subtitle, apiEndpoin
     setLikedSongs(newLikedSongs)
     localStorage.setItem("likedSongs", JSON.stringify(Array.from(newLikedSongs)))
 
+    // Call external onLike if provided
+    if (onLike) {
+      onLike(song)
+    }
+
     // Show notification
     const message = newLikedSongs.has(song.id) ? "השיר נוסף לרשימת ההשמעה האישית! 💖" : "השיר הוסר מרשימת ההשמעה האישית"
 
-    // Create notification element
     const notification = document.createElement("div")
     notification.className = "like-notification"
     notification.textContent = message
     notification.style.cssText = `
-      position: fixed;
-      top: 120px;
-      right: 20px;
-      background: linear-gradient(135deg, #ec4899, #8b5cf6);
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 25px;
-      font-weight: 600;
-      z-index: 10000;
-      animation: slideInRight 0.5s ease-out;
-      box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
-    `
+    position: fixed;
+    top: 120px;
+    right: 20px;
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    z-index: 10000;
+    animation: slideInRight 0.5s ease-out;
+    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+  `
 
     document.body.appendChild(notification)
     setTimeout(() => {
@@ -286,9 +303,11 @@ const SongsDisplay: React.FC<SongsDisplayProps> = ({ title, subtitle, apiEndpoin
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const vol = Number.parseFloat(e.target.value)
+    const newVolume = 1 - vol; // הפוך את הערך
+
     setVolume(vol)
     if (audioRef.current) {
-      audioRef.current.volume = vol
+      audioRef.current.volume = newVolume
     }
   }
 

@@ -84,6 +84,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
             <div className="player-song-info">
               <div className="player-artwork">
                 <div className="artwork-placeholder">
+                  <span className="music-note">🎵</span>
                 </div>
                 {isPlaying && (
                   <div className="playing-overlay">
@@ -148,16 +149,16 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
             {/* Additional Controls */}
             <div className="player-extras">
               <div className="volume-control">
-                <span className="volume-icon">🔊</span>
                 <input
                   type="range"
-                  min="0"
                   max="1"
+                  min="0"
                   step="0.1"
                   value={volume}
                   onChange={onVolumeChange}
                   className="volume-slider"
                 />
+                <span className="volume-icon">🔊</span>
               </div>
 
               <div className="speed-control">
@@ -179,9 +180,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
                 <button className="action-btn" title="שתף">
                   📤
                 </button>
-                <button className="action-btn" title="הוסף לפלייליסט">
-                  ➕
-                </button>
+            
               </div>
             </div>
           </>

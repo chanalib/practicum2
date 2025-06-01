@@ -1,10 +1,20 @@
 "use client"
-
-import type React from "react"
 import { useEffect, useState } from "react"
 import SongsDisplay from "./SongsDisplay"
 
-const PersonalPlaylist: React.FC = () => {
+interface Song {
+  id: number
+  name: string
+  musicStyle: string
+  songLength: number
+  creatorId: number
+  S3Url: string
+  key: string
+  artistName: string
+  description: string
+}
+
+const PersonalPlaylistPage = () => {
   const [likedSongIds, setLikedSongIds] = useState<number[]>([])
   const [personalPlaylistEndpoint, setPersonalPlaylistEndpoint] = useState<string>("")
 
@@ -22,6 +32,22 @@ const PersonalPlaylist: React.FC = () => {
       }
     }
   }, [])
+
+  const handleLike = (song: Song) => {
+    const savedLikes = localStorage.getItem("likedSongs")
+    const currentLikes = savedLikes ? JSON.parse(savedLikes) : []
+    const newLikes = currentLikes.filter((id: number) => id !== song.id)
+
+    localStorage.setItem("likedSongs", JSON.stringify(newLikes))
+    setLikedSongIds(newLikes)
+
+    if (newLikes.length > 0) {
+      const idsParam = newLikes.join(",")
+      setPersonalPlaylistEndpoint(`https://localhost:7157/api/song/playlist?ids=${idsParam}`)
+    } else {
+      setPersonalPlaylistEndpoint("")
+    }
+  }
 
   if (likedSongIds.length === 0) {
     return (
@@ -45,13 +71,14 @@ const PersonalPlaylist: React.FC = () => {
   return (
     <div className="personal-playlist-page">
       <SongsDisplay
-        title="   רשימת ההשמעה האישית שלי 💖 "
+        title="💖 רשימת ההשמעה האישית שלי"
         subtitle={`${likedSongIds.length} שירים שאהבת - ההשמעה האישית שלך`}
         apiEndpoint={personalPlaylistEndpoint}
         showLikes={true}
+        onLike={handleLike}
       />
     </div>
   )
 }
 
-export default PersonalPlaylist
+export default PersonalPlaylistPage

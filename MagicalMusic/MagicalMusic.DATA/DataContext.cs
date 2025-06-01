@@ -29,33 +29,4 @@ public class DataContext : DbContext
         );
         Console.WriteLine($"connectionString: {connectionString}");
     }
-    //protected override void OnModelCreating(ModelBuilder modelBuilder)
-    //{
-    //    // המרה של רשימת מחרוזות למחרוזת אחת מופרדת בפסיקים
-    //    var stringListConverter = new ValueConverter<List<string>, string>(
-    //        v => string.Join(",", v),
-    //        v => v.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList()
-    //    );
-
-    //    modelBuilder.Entity<UserProfile>()
-    //        .Property(u => u.FavoriteGenres)
-    //        .HasConversion(stringListConverter);
-    //}
 }
-
-
-
-        //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //    {
-        //        optionsBuilder.UseMySql("Server=localhost;Database=magical_music_db;User ID=root;Password=1234;SslMode=Preferred;",
-        //new MySqlServerVersion(new Version(8, 0, 0)));
-
-        //        //optionsBuilder.UseMySql(
-        //        // @"Server=byfqraq5we9q1t4vuijf-mysql.services.clever-cloud.com;
-        //        // Port=3306;
-        //        // Database=byfqraq5we9q1t4vuijf;
-        //        // User=u0yt3sn0jarrzzxj;
-        //        // Password=9QgkOocVtR6AnJGM0XnF",
-        //        //    new MySqlServerVersion(new Version(8, 0, 0))
-        //        //);
-        //    }

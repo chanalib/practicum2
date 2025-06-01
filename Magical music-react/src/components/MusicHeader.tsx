@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom"
 interface User {
   Name?: string
   email?: string
+  firstName?: string
+
 }
 
 interface MusicHeaderProps {
@@ -22,15 +24,14 @@ const MusicHeader = ({ onLogout, user }: MusicHeaderProps) => {
   const navItems = [
     { name: "שירים", path: "/songs" },
     { name: "זמרים", path: "/creators" },
+    { name: "תמלול", path: "/transcription" },
     { name: "הקלטה", path: "/AudioRecorder" },
     { name: "קריוקי", path: "/KaraokeRecorder" },
-    { name: "בקשת שיר", path: "/request" },
-    { name: "תמלול", path: "/transcription" },
+    { name: "מועדפים", path: "/favorites" },
+    { name: "משאלות", path: "/request" },
   ]
 
-  const firstLetter = user
-    ? (user.Name?.charAt(0) || user.email?.charAt(0) || "").toUpperCase()
-    : "U"
+  const firstLetter = user ? (user.Name?.charAt(0) || user.email?.charAt(0) || "U").toUpperCase() : "U"
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -46,6 +47,17 @@ const MusicHeader = ({ onLogout, user }: MusicHeaderProps) => {
     }
   }, [menuOpen])
 
+  // Add this useEffect to update when user changes
+  useEffect(() => {
+    // Force re-render when user data changes
+    const handleUserChange = () => {
+      // This will trigger a re-render with updated user data
+      setMenuOpen(false)
+    }
+
+    window.addEventListener("userDataChanged", handleUserChange)
+    return () => window.removeEventListener("userDataChanged", handleUserChange)
+  }, [user])
   return (
     <header className="music-header">
       <div className="header-container">
@@ -113,6 +125,7 @@ const MusicHeader = ({ onLogout, user }: MusicHeaderProps) => {
                       }}
                     >
                       <span className="menu-icon">👤</span>
+                      
                       <span>פרופיל אישי</span>
                     </a>
                     <a href="#" className="menu-item" onClick={() => setMenuOpen(false)}>

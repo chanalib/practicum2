@@ -32,6 +32,8 @@ var awsBucketName = builder.Configuration["AWS:BucketName"];
 var awsRegion = builder.Configuration["AWS:Region"];
 var jwtKey = builder.Configuration["JWT_KEY"];
 var apiKey = builder.Configuration["OpenAI:ApiKey"];
+var dfaultConnection = builder.Configuration["DefaultConnection"];
+
 
 
 Console.WriteLine($"AWS_ACCESS_KEY_ID: {awsAccessKeyId}");
@@ -40,6 +42,7 @@ Console.WriteLine($"AWS_BucketName: {awsBucketName}");
 Console.WriteLine($"awsRegion: {awsRegion}");
 Console.WriteLine($"JWT_KEY: {jwtKey}");
 Console.WriteLine($"ApiKey: {apiKey}");
+Console.WriteLine($"ApiKey: {dfaultConnection}");
 // בדוק אם מפתחות AWS קיימים
 if (string.IsNullOrEmpty(awsAccessKeyId) || string.IsNullOrEmpty(awsSecretAccessKey))
 {
