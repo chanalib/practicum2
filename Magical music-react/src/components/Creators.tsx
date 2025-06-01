@@ -2,10 +2,9 @@
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "./Styles/creators.css";
 import SearchAndSort from "./SearchAndSort"
-import "./styles/search-sort.css"
-
+import "./Styles/search-sort.css"
+import "./Styles/creators.css"
 interface Creator {
   id: number;
   name: string;
