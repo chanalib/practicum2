@@ -284,4 +284,6 @@ app.UseHsts();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapGet("/", () => Results.Ok("Magical Music API is running 🚀"));
+
 app.Run();
