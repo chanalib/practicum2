@@ -9,7 +9,7 @@ const AllSongs: React.FC = () => {
     <SongsDisplay
       title="גלריית השירים"
       subtitle="גלו את השירים הטובים ביותר במקום אחד"
-      apiEndpoint="https://magical-music-server.onrender.com//api/song"
+      apiEndpoint="https://magical-music-server.onrender.com/api/song"
     />
   )
 }

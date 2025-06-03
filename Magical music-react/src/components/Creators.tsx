@@ -26,7 +26,7 @@ const Creators = () => {
   useEffect(() => {
     const fetchCreators = async () => {
       try {
-        const response = await fetch("https://magical-music-server.onrender.com//api/creator");
+        const response = await fetch("https://magical-music-server.onrender.com/api/creator");
         if (!response.ok) throw new Error("שגיאה בעת בקשת הנתונים");
         const data: Creator[] = await response.json();
         setCreators(data);

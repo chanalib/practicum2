@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MagicalMusic.CORE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b936f9c71f4d009c87fd6bfed24f14d3592fc58")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2dbde7d0f5ba66cb43695a2872361bcaee308a41")]
 [assembly: System.Reflection.AssemblyProductAttribute("MagicalMusic.CORE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MagicalMusic.CORE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

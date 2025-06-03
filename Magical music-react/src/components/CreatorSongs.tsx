@@ -48,7 +48,7 @@ const CreatorSongs: React.FC = () => {
     <SongsDisplay
       title={`🎤 שירי ${creator?.name || "הזמר"}`}
       subtitle={`כל השירים של ${creator?.name || "הזמר הנבחר"}`}
-      apiEndpoint={`https://magical-music-server.onrender.com//api/song/creator/${id}`}
+      apiEndpoint={`https://magical-music-server.onrender.com/api/song/creator/${id}`}
     />
   )
 }
