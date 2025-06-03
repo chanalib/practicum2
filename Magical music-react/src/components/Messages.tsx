@@ -56,7 +56,6 @@ const RequestForm: React.FC = () => {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 2000))
 
-      // Mock API call
       const response = await fetch("https://magical-music-server.onrender.com/api/messages", {
         method: "POST",
         headers: {

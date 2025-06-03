@@ -23,7 +23,7 @@ const Register = () => {
         setError('');
         setIsSuccess(false);
         try {
-            const response = await axios.post('https://magical-music-server.onrender.com/auth/register', {
+            const response = await axios.post('https://magical-music-server.onrender.com/api/auth/register', {
                 name,
                 email,
                 password,
