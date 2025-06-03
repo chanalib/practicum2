@@ -226,7 +226,7 @@ const RequestForm: React.FC = () => {
                 ) : (
                   <>
                     <span className="button-icon">🚀</span>
-                    <span>שלח בקשה</span>
+                    <span>שגר בקשה</span>
                     <span className="button-icon">🚀</span>
                   </>
                 )}
